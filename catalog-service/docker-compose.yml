@@ -1,0 +1,10 @@
+---
+# created from docker cli at https://www.composerize.com/
+# docker run --rm --name catalog-service -p 8080:9001 catalog-service:0.0.1-SNAPSHOT
+version: '3.3'
+services:
+  catalog-service:
+    container_name: catalog-service
+    ports:
+      - '8080:9001'
+    image: 'catalog-service:0.0.1-SNAPSHOT'

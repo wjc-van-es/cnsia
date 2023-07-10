@@ -1,0 +1,571 @@
+willem@linux-laptop:~/git/cnsia$ cd catalog-service/
+willem@linux-laptop:~/git/cnsia/catalog-service$ sdk env
+
+Using java version 17.0.6-tem in this shell.
+willem@linux-laptop:~/git/cnsia/catalog-service$ sdk current java
+
+Using java version 17.0.6-tem
+willem@linux-laptop:~/git/cnsia/catalog-service$ printenv JAVA_HOME
+/home/willem/.sdkman/candidates/java/17.0.6-tem
+willem@linux-laptop:~/git/cnsia/catalog-service$ java -XshowSettings:properties --version
+Property settings:
+    file.encoding = UTF-8
+    file.separator = /
+    java.class.path =
+    java.class.version = 61.0
+    java.home = /home/willem/.sdkman/candidates/java/17.0.6-tem
+    java.io.tmpdir = /tmp
+    java.library.path = /usr/java/packages/lib
+        /usr/lib64
+        /lib64
+        /lib
+        /usr/lib
+    java.runtime.name = OpenJDK Runtime Environment
+    java.runtime.version = 17.0.6+10
+    java.specification.name = Java Platform API Specification
+    java.specification.vendor = Oracle Corporation
+    java.specification.version = 17
+    java.vendor = Eclipse Adoptium
+    java.vendor.url = https://adoptium.net/
+    java.vendor.url.bug = https://github.com/adoptium/adoptium-support/issues
+    java.vendor.version = Temurin-17.0.6+10
+    java.version = 17.0.6
+    java.version.date = 2023-01-17
+    java.vm.compressedOopsMode = Zero based
+    java.vm.info = mixed mode, sharing
+    java.vm.name = OpenJDK 64-Bit Server VM
+    java.vm.specification.name = Java Virtual Machine Specification
+    java.vm.specification.vendor = Oracle Corporation
+    java.vm.specification.version = 17
+    java.vm.vendor = Eclipse Adoptium
+    java.vm.version = 17.0.6+10
+    jdk.debug = release
+    line.separator = \n
+    native.encoding = UTF-8
+    os.arch = amd64
+    os.name = Linux
+    os.version = 5.19.0-46-generic
+    path.separator = :
+    sun.arch.data.model = 64
+    sun.boot.library.path = /home/willem/.sdkman/candidates/java/17.0.6-tem/lib
+    sun.cpu.endian = little
+    sun.io.unicode.encoding = UnicodeLittle
+    sun.java.launcher = SUN_STANDARD
+    sun.jnu.encoding = UTF-8
+    sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+    sun.stderr.encoding = UTF-8
+    sun.stdout.encoding = UTF-8
+    user.country = US
+    user.dir = /home/willem/git/cnsia/catalog-service
+    user.home = /home/willem
+    user.language = en
+    user.name = willem
+
+openjdk 17.0.6 2023-01-17
+OpenJDK Runtime Environment Temurin-17.0.6+10 (build 17.0.6+10)
+OpenJDK 64-Bit Server VM Temurin-17.0.6+10 (build 17.0.6+10, mixed mode, sharing)
+willem@linux-laptop:~/git/cnsia/catalog-service$ ./mvnw spring-boot:build-image
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< com.polarbookshop:catalog-service >------------------
+[INFO] Building catalog-service-03 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] >>> spring-boot-maven-plugin:3.0.5:build-image (default-cli) > package @ catalog-service >>>
+[INFO]
+[INFO] --- maven-resources-plugin:3.3.0:resources (default-resources) @ catalog-service ---
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:3.10.1:compile (default-compile) @ catalog-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- maven-resources-plugin:3.3.0:testResources (default-testResources) @ catalog-service ---
+[INFO] skip non existing resourceDirectory /home/willem/git/cnsia/catalog-service/src/test/resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.10.1:testCompile (default-testCompile) @ catalog-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ catalog-service ---
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.polarbookshop.catalogservice.domain.BookServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.302 s - in com.polarbookshop.catalogservice.domain.BookServiceTest
+[INFO] Running com.polarbookshop.catalogservice.domain.BookValidationTests
+00:03:16.681 [main] DEBUG org.jboss.logging -- Logging Provider: org.jboss.logging.Log4j2LoggerProvider
+00:03:16.682 [main] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.0.Final
+00:03:16.684 [main] DEBUG org.hibernate.validator.internal.xml.config.ValidationXmlParser -- Trying to load META-INF/validation.xml for XML based Validator configuration.
+00:03:16.685 [main] DEBUG org.hibernate.validator.internal.xml.config.ResourceLoaderHelper -- Trying to load META-INF/validation.xml via TCCL
+00:03:16.685 [main] DEBUG org.hibernate.validator.internal.xml.config.ResourceLoaderHelper -- Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+00:03:16.685 [main] DEBUG org.hibernate.validator.internal.xml.config.ValidationXmlParser -- No META-INF/validation.xml found. Using annotation based configuration only.
+00:03:16.687 [main] DEBUG org.hibernate.validator.internal.engine.resolver.TraversableResolvers -- Cannot find jakarta.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+00:03:16.698 [main] DEBUG org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator -- Loaded expression factory via original TCCL
+00:03:16.744 [main] DEBUG org.hibernate.validator.internal.engine.ValidatorFactoryConfigurationHelper -- HV000252: Using org.hibernate.validator.internal.engine.DefaultPropertyNodeNameProvider as property node name provider.
+00:03:16.746 [main] DEBUG org.hibernate.validator.internal.engine.ValidatorFactoryConfigurationHelper -- HV000234: Using org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator as ValidatorFactory-scoped message interpolator.
+00:03:16.747 [main] DEBUG org.hibernate.validator.internal.engine.ValidatorFactoryConfigurationHelper -- HV000234: Using org.hibernate.validator.internal.engine.resolver.TraverseAllTraversableResolver as ValidatorFactory-scoped traversable resolver.
+00:03:16.747 [main] DEBUG org.hibernate.validator.internal.engine.ValidatorFactoryConfigurationHelper -- HV000234: Using org.hibernate.validator.internal.util.ExecutableParameterNameProvider as ValidatorFactory-scoped parameter name provider.
+00:03:16.747 [main] DEBUG org.hibernate.validator.internal.engine.ValidatorFactoryConfigurationHelper -- HV000234: Using org.hibernate.validator.internal.engine.DefaultClockProvider as ValidatorFactory-scoped clock provider.
+00:03:16.747 [main] DEBUG org.hibernate.validator.internal.engine.ValidatorFactoryConfigurationHelper -- HV000234: Using org.hibernate.validator.internal.engine.scripting.DefaultScriptEvaluatorFactory as ValidatorFactory-scoped script evaluator factory.
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.163 s - in com.polarbookshop.catalogservice.domain.BookValidationTests
+[INFO] Running com.polarbookshop.catalogservice.CatalogServiceApplicationTests
+00:03:16.862 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Neither @ContextConfiguration nor @ContextHierarchy found for test class [CatalogServiceApplicationTests]: using SpringBootContextLoader
+00:03:16.863 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader -- Could not detect default resource locations for test class [com.polarbookshop.catalogservice.CatalogServiceApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+00:03:16.863 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.polarbookshop.catalogservice.CatalogServiceApplicationTests]: CatalogServiceApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:03:16.871 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using ContextCustomizers for test class [CatalogServiceApplicationTests]: [ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer, WebTestClientContextCustomizer, DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer]
+00:03:16.897 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider -- Identified candidate component class: file [/home/willem/git/cnsia/catalog-service/target/classes/com/polarbookshop/catalogservice/CatalogServiceApplication.class]
+00:03:16.902 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.polarbookshop.catalogservice.CatalogServiceApplication for test class com.polarbookshop.catalogservice.CatalogServiceApplicationTests
+00:03:16.943 [main] DEBUG org.springframework.test.context.util.TestContextSpringFactoriesUtils -- Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom TestExecutionListener classes or make the default TestExecutionListener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttributeSource]
+00:03:16.944 [main] DEBUG org.springframework.test.context.util.TestContextSpringFactoriesUtils -- Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom TestExecutionListener classes or make the default TestExecutionListener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+00:03:16.945 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using TestExecutionListeners for test class [CatalogServiceApplicationTests]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, EventPublishingTestExecutionListener, ResetMocksTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener]
+00:03:16.945 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener -- Before test class: class [CatalogServiceApplicationTests], class annotated with @DirtiesContext [false] with mode [null]
+00:03:16.949 [main] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener -- Performing dependency injection for test class com.polarbookshop.catalogservice.CatalogServiceApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-07-11T00:03:17.086+02:00  INFO 13161 --- [           main] c.p.c.CatalogServiceApplicationTests     : Starting CatalogServiceApplicationTests using Java 17.0.6 with PID 13161 (started by willem in /home/willem/git/cnsia/catalog-service)
+2023-07-11T00:03:17.087+02:00  INFO 13161 --- [           main] c.p.c.CatalogServiceApplicationTests     : No active profile set, falling back to 1 default profile: "default"
+2023-07-11T00:03:17.593+02:00  INFO 13161 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2023-07-11T00:03:17.599+02:00  INFO 13161 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-11T00:03:17.600+02:00  INFO 13161 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.7]
+2023-07-11T00:03:17.670+02:00  INFO 13161 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-11T00:03:17.673+02:00  INFO 13161 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 573 ms
+2023-07-11T00:03:17.972+02:00  INFO 13161 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 41631 (http) with context path ''
+2023-07-11T00:03:17.978+02:00  INFO 13161 --- [           main] c.p.c.CatalogServiceApplicationTests     : Started CatalogServiceApplicationTests in 1.017 seconds (process running for 1.908)
+2023-07-11T00:03:18.274+02:00  INFO 13161 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-11T00:03:18.274+02:00  INFO 13161 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-11T00:03:18.275+02:00  INFO 13161 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.609 s - in com.polarbookshop.catalogservice.CatalogServiceApplicationTests
+[INFO] Running com.polarbookshop.catalogservice.web.BookControllerMvcTests
+2023-07-11T00:03:18.416+02:00  INFO 13161 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.polarbookshop.catalogservice.web.BookControllerMvcTests]: BookControllerMvcTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-07-11T00:03:18.433+02:00  INFO 13161 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.polarbookshop.catalogservice.CatalogServiceApplication for test class com.polarbookshop.catalogservice.web.BookControllerMvcTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-07-11T00:03:18.461+02:00  INFO 13161 --- [           main] c.p.c.web.BookControllerMvcTests         : Starting BookControllerMvcTests using Java 17.0.6 with PID 13161 (started by willem in /home/willem/git/cnsia/catalog-service)
+2023-07-11T00:03:18.461+02:00  INFO 13161 --- [           main] c.p.c.web.BookControllerMvcTests         : No active profile set, falling back to 1 default profile: "default"
+2023-07-11T00:03:18.604+02:00  INFO 13161 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-07-11T00:03:18.604+02:00  INFO 13161 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-07-11T00:03:18.604+02:00  INFO 13161 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2023-07-11T00:03:18.613+02:00  INFO 13161 --- [           main] c.p.c.web.BookControllerMvcTests         : Started BookControllerMvcTests in 0.175 seconds (process running for 2.544)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.216 s - in com.polarbookshop.catalogservice.web.BookControllerMvcTests
+[INFO] Running com.polarbookshop.catalogservice.web.BookControllerMvcExtendedTest
+2023-07-11T00:03:18.632+02:00  INFO 13161 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.polarbookshop.catalogservice.web.BookControllerMvcExtendedTest]: BookControllerMvcExtendedTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-07-11T00:03:18.638+02:00  INFO 13161 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.polarbookshop.catalogservice.CatalogServiceApplication for test class com.polarbookshop.catalogservice.web.BookControllerMvcExtendedTest
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /books/73737313940
+       Parameters = {}
+          Headers = [Accept:"application/json", Authorization:"Bearer header.body.sig"]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.polarbookshop.catalogservice.web.BookController
+           Method = com.polarbookshop.catalogservice.web.BookController#getByIsbn(String)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.polarbookshop.catalogservice.domain.BookNotFoundException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = null
+          Headers = [Content-Type:"application/json", Content-Length:"45"]
+     Content type = application/json
+             Body = The book with ISBN 73737313940 was not found.
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /books
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"89"]
+             Body = {"isbn":"1234561232","title":"The meaning of nothing","author":"B. McNair","price":24.95}
+    Session Attrs = {}
+
+Handler:
+             Type = com.polarbookshop.catalogservice.web.BookController
+           Method = com.polarbookshop.catalogservice.web.BookController#post(Book)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.polarbookshop.catalogservice.domain.BookAlreadyExistsException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 422
+    Error message = null
+          Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"43"]
+     Content type = text/plain;charset=UTF-8
+             Body = A book with ISBN 1234561232 already exists.
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s - in com.polarbookshop.catalogservice.web.BookControllerMvcExtendedTest
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO]
+[INFO] --- maven-jar-plugin:3.3.0:jar (default-jar) @ catalog-service ---
+[INFO]
+[INFO] --- spring-boot-maven-plugin:3.0.5:repackage (repackage) @ catalog-service ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO]
+[INFO] <<< spring-boot-maven-plugin:3.0.5:build-image (default-cli) < package @ catalog-service <<<
+[INFO]
+[INFO]
+[INFO] --- spring-boot-maven-plugin:3.0.5:build-image (default-cli) @ catalog-service ---
+[INFO] Building image 'docker.io/library/catalog-service:0.0.1-SNAPSHOT'
+[INFO]
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 1%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 2%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 3%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 5%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 6%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 7%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 10%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 12%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 14%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 16%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 28%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 39%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 48%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 52%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 56%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 59%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 61%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 66%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 78%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 85%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 92%
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder:base' 100%
+[INFO]  > Pulled builder image 'paketobuildpacks/builder@sha256:681bd1a233f5c9a4acb8b679d0430b9f5b1047a277ce2d612f548e263596e076'
+[INFO]  > Pulling run image 'docker.io/paketobuildpacks/run:base-cnb' 21%
+[INFO]  > Pulling run image 'docker.io/paketobuildpacks/run:base-cnb' 100%
+[INFO]  > Pulled run image 'paketobuildpacks/run@sha256:1af9935d8987fd52b2266d288200c9482d1dd5529860bbf5bc2d248de1cb1a38'
+[INFO]  > Executing lifecycle version v0.16.4
+[INFO]  > Using build cache volume 'pack-cache-0835c272a0bf.build'
+[INFO]
+[INFO]  > Running creator
+[INFO]     [creator]     ===> ANALYZING
+[INFO]     [creator]     Restoring data for SBOM from previous image
+[INFO]     [creator]     ===> DETECTING
+[INFO]     [creator]     6 of 26 buildpacks participating
+[INFO]     [creator]     paketo-buildpacks/ca-certificates   3.6.3
+[INFO]     [creator]     paketo-buildpacks/bellsoft-liberica 10.2.6
+[INFO]     [creator]     paketo-buildpacks/syft              1.32.1
+[INFO]     [creator]     paketo-buildpacks/executable-jar    6.7.4
+[INFO]     [creator]     paketo-buildpacks/dist-zip          5.6.4
+[INFO]     [creator]     paketo-buildpacks/spring-boot       5.26.1
+[INFO]     [creator]     ===> RESTORING
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/ca-certificates:helper" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/bellsoft-liberica:helper" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/bellsoft-liberica:java-security-properties" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/bellsoft-liberica:jre" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/syft:syft" from cache
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/spring-boot:helper" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/spring-boot:spring-cloud-bindings" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/spring-boot:web-application-type" from app image
+[INFO]     [creator]     Restoring data for "paketo-buildpacks/syft:syft" from cache
+[INFO]     [creator]     Restoring data for SBOM from cache
+[INFO]     [creator]     ===> BUILDING
+[INFO]     [creator]
+[INFO]     [creator]     Paketo Buildpack for CA Certificates 3.6.3
+[INFO]     [creator]       https://github.com/paketo-buildpacks/ca-certificates
+[INFO]     [creator]       Launch Helper: Contributing to layer
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_ca-certificates/helper/exec.d/ca-certificates-helper
+[INFO]     [creator]
+[INFO]     [creator]     Paketo Buildpack for BellSoft Liberica 10.2.6
+[INFO]     [creator]       https://github.com/paketo-buildpacks/bellsoft-liberica
+[INFO]     [creator]       Build Configuration:
+[INFO]     [creator]         $BP_JVM_JLINK_ARGS           --no-man-pages --no-header-files --strip-debug --compress=1  configure custom link arguments (--output must be omitted)
+[INFO]     [creator]         $BP_JVM_JLINK_ENABLED        false                                                        enables running jlink tool to generate custom JRE
+[INFO]     [creator]         $BP_JVM_TYPE                 JRE                                                          the JVM type - JDK or JRE
+[INFO]     [creator]         $BP_JVM_VERSION              17                                                           the Java version
+[INFO]     [creator]       Launch Configuration:
+[INFO]     [creator]         $BPL_DEBUG_ENABLED           false                                                        enables Java remote debugging support
+[INFO]     [creator]         $BPL_DEBUG_PORT              8000                                                         configure the remote debugging port
+[INFO]     [creator]         $BPL_DEBUG_SUSPEND           false                                                        configure whether to suspend execution until a debugger has attached
+[INFO]     [creator]         $BPL_HEAP_DUMP_PATH                                                                       write heap dumps on error to this path
+[INFO]     [creator]         $BPL_JAVA_NMT_ENABLED        true                                                         enables Java Native Memory Tracking (NMT)
+[INFO]     [creator]         $BPL_JAVA_NMT_LEVEL          summary                                                      configure level of NMT, summary or detail
+[INFO]     [creator]         $BPL_JFR_ARGS                                                                             configure custom Java Flight Recording (JFR) arguments
+[INFO]     [creator]         $BPL_JFR_ENABLED             false                                                        enables Java Flight Recording (JFR)
+[INFO]     [creator]         $BPL_JMX_ENABLED             false                                                        enables Java Management Extensions (JMX)
+[INFO]     [creator]         $BPL_JMX_PORT                5000                                                         configure the JMX port
+[INFO]     [creator]         $BPL_JVM_HEAD_ROOM           0                                                            the headroom in memory calculation
+[INFO]     [creator]         $BPL_JVM_LOADED_CLASS_COUNT  35% of classes                                               the number of loaded classes in memory calculation
+[INFO]     [creator]         $BPL_JVM_THREAD_COUNT        250                                                          the number of threads in memory calculation
+[INFO]     [creator]         $JAVA_TOOL_OPTIONS                                                                        the JVM launch flags
+[INFO]     [creator]         Using Java version 17 extracted from MANIFEST.MF
+[INFO]     [creator]       BellSoft Liberica JRE 17.0.7: Contributing to layer
+[INFO]     [creator]         Downloading from https://github.com/bell-sw/Liberica/releases/download/17.0.7+7/bellsoft-jre17.0.7+7-linux-amd64.tar.gz
+[INFO]     [creator]         Verifying checksum
+[INFO]     [creator]         Expanding to /layers/paketo-buildpacks_bellsoft-liberica/jre
+[INFO]     [creator]         Adding 137 container CA certificates to JVM truststore
+[INFO]     [creator]         Writing env.launch/BPI_APPLICATION_PATH.default
+[INFO]     [creator]         Writing env.launch/BPI_JVM_CACERTS.default
+[INFO]     [creator]         Writing env.launch/BPI_JVM_CLASS_COUNT.default
+[INFO]     [creator]         Writing env.launch/BPI_JVM_SECURITY_PROVIDERS.default
+[INFO]     [creator]         Writing env.launch/JAVA_HOME.default
+[INFO]     [creator]         Writing env.launch/JAVA_TOOL_OPTIONS.append
+[INFO]     [creator]         Writing env.launch/JAVA_TOOL_OPTIONS.delim
+[INFO]     [creator]         Writing env.launch/MALLOC_ARENA_MAX.default
+[INFO]     [creator]       Launch Helper: Contributing to layer
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/active-processor-count
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/java-opts
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/jvm-heap
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/link-local-dns
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/memory-calculator
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/security-providers-configurer
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/jmx
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/jfr
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/security-providers-classpath-9
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/debug-9
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/nmt
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/openssl-certificate-loader
+[INFO]     [creator]       Java Security Properties: Contributing to layer
+[INFO]     [creator]         Writing env.launch/JAVA_SECURITY_PROPERTIES.default
+[INFO]     [creator]         Writing env.launch/JAVA_TOOL_OPTIONS.append
+[INFO]     [creator]         Writing env.launch/JAVA_TOOL_OPTIONS.delim
+[INFO]     [creator]
+[INFO]     [creator]     Paketo Buildpack for Syft 1.32.1
+[INFO]     [creator]       https://github.com/paketo-buildpacks/syft
+[INFO]     [creator]         Downloading from https://github.com/anchore/syft/releases/download/v0.84.0/syft_0.84.0_linux_amd64.tar.gz
+[INFO]     [creator]         Verifying checksum
+[INFO]     [creator]         Writing env.build/SYFT_CHECK_FOR_APP_UPDATE.default
+[INFO]     [creator]
+[INFO]     [creator]     Paketo Buildpack for Executable JAR 6.7.4
+[INFO]     [creator]       https://github.com/paketo-buildpacks/executable-jar
+[INFO]     [creator]       Class Path: Contributing to layer
+[INFO]     [creator]         Writing env/CLASSPATH.delim
+[INFO]     [creator]         Writing env/CLASSPATH.prepend
+[INFO]     [creator]       Process types:
+[INFO]     [creator]         executable-jar: java org.springframework.boot.loader.JarLauncher (direct)
+[INFO]     [creator]         task:           java org.springframework.boot.loader.JarLauncher (direct)
+[INFO]     [creator]         web:            java org.springframework.boot.loader.JarLauncher (direct)
+[INFO]     [creator]
+[INFO]     [creator]     Paketo Buildpack for Spring Boot 5.26.1
+[INFO]     [creator]       https://github.com/paketo-buildpacks/spring-boot
+[INFO]     [creator]       Build Configuration:
+[INFO]     [creator]         $BP_SPRING_CLOUD_BINDINGS_DISABLED   false  whether to contribute Spring Boot cloud bindings support
+[INFO]     [creator]       Launch Configuration:
+[INFO]     [creator]         $BPL_SPRING_CLOUD_BINDINGS_DISABLED  false  whether to auto-configure Spring Boot environment properties from bindings
+[INFO]     [creator]         $BPL_SPRING_CLOUD_BINDINGS_ENABLED   true   Deprecated - whether to auto-configure Spring Boot environment properties from bindings
+[INFO]     [creator]       Creating slices from layers index
+[INFO]     [creator]         dependencies (19.1 MB)
+[INFO]     [creator]         spring-boot-loader (269.4 KB)
+[INFO]     [creator]         snapshot-dependencies (0.0 B)
+[INFO]     [creator]         application (68.3 KB)
+[INFO]     [creator]       Launch Helper: Contributing to layer
+[INFO]     [creator]         Creating /layers/paketo-buildpacks_spring-boot/helper/exec.d/spring-cloud-bindings
+[INFO]     [creator]       Spring Cloud Bindings 1.13.0: Contributing to layer
+[INFO]     [creator]         Downloading from https://repo1.maven.org/maven2/org/springframework/cloud/spring-cloud-bindings/1.13.0/spring-cloud-bindings-1.13.0.jar
+[INFO]     [creator]         Verifying checksum
+[INFO]     [creator]         Copying to /layers/paketo-buildpacks_spring-boot/spring-cloud-bindings
+[INFO]     [creator]       Web Application Type: Contributing to layer
+[INFO]     [creator]         Servlet web application detected
+[INFO]     [creator]         Writing env.launch/BPL_JVM_THREAD_COUNT.default
+[INFO]     [creator]       4 application slices
+[INFO]     [creator]       Image labels:
+[INFO]     [creator]         org.opencontainers.image.title
+[INFO]     [creator]         org.opencontainers.image.version
+[INFO]     [creator]         org.springframework.boot.version
+[INFO]     [creator]     ===> EXPORTING
+[INFO]     [creator]     Adding layer 'paketo-buildpacks/ca-certificates:helper'
+[INFO]     [creator]     Adding layer 'paketo-buildpacks/bellsoft-liberica:helper'
+[INFO]     [creator]     Reusing layer 'paketo-buildpacks/bellsoft-liberica:java-security-properties'
+[INFO]     [creator]     Adding layer 'paketo-buildpacks/bellsoft-liberica:jre'
+[INFO]     [creator]     Reusing layer 'paketo-buildpacks/executable-jar:classpath'
+[INFO]     [creator]     Adding layer 'paketo-buildpacks/spring-boot:helper'
+[INFO]     [creator]     Adding layer 'paketo-buildpacks/spring-boot:spring-cloud-bindings'
+[INFO]     [creator]     Adding layer 'paketo-buildpacks/spring-boot:web-application-type'
+[INFO]     [creator]     Adding layer 'buildpacksio/lifecycle:launch.sbom'
+[INFO]     [creator]     Reusing 3/5 app layer(s)
+[INFO]     [creator]     Adding 2/5 app layer(s)
+[INFO]     [creator]     Adding layer 'buildpacksio/lifecycle:launcher'
+[INFO]     [creator]     Adding layer 'buildpacksio/lifecycle:config'
+[INFO]     [creator]     Reusing layer 'buildpacksio/lifecycle:process-types'
+[INFO]     [creator]     Adding label 'io.buildpacks.lifecycle.metadata'
+[INFO]     [creator]     Adding label 'io.buildpacks.build.metadata'
+[INFO]     [creator]     Adding label 'io.buildpacks.project.metadata'
+[INFO]     [creator]     Adding label 'org.opencontainers.image.title'
+[INFO]     [creator]     Adding label 'org.opencontainers.image.version'
+[INFO]     [creator]     Adding label 'org.springframework.boot.version'
+[INFO]     [creator]     Setting default process type 'web'
+[INFO]     [creator]     Saving docker.io/library/catalog-service:0.0.1-SNAPSHOT...
+[INFO]     [creator]     *** Images (8e7371eec325):
+[INFO]     [creator]           docker.io/library/catalog-service:0.0.1-SNAPSHOT
+[INFO]     [creator]     Adding cache layer 'paketo-buildpacks/syft:syft'
+[INFO]     [creator]     Adding cache layer 'buildpacksio/lifecycle:cache.sbom'
+[INFO]
+[INFO] Successfully built image 'docker.io/library/catalog-service:0.0.1-SNAPSHOT'
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:04 min
+[INFO] Finished at: 2023-07-11T00:04:19+02:00
+[INFO] ------------------------------------------------------------------------
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker image ls
+REPOSITORY                        TAG              IMAGE ID       CREATED         SIZE
+paketobuildpacks/run              base-cnb         f2e5000af0cb   11 days ago     87.1MB
+paketobuildpacks/run              <none>           ebda85cf0d59   6 weeks ago     88.2MB
+confluentinc/ksqldb-examples      7.2.1            ae252c2780c4   12 months ago   815MB
+confluentinc/cp-ksqldb-server     7.2.1            140d2ac32177   12 months ago   1.36GB
+confluentinc/cp-ksqldb-cli        7.2.1            287039530a46   12 months ago   857MB
+confluentinc/cp-schema-registry   7.2.1            afaac043dcc1   12 months ago   1.86GB
+confluentinc/cp-kafka             7.2.1            d893473a6510   12 months ago   782MB
+confluentinc/cp-kafka             latest           d893473a6510   12 months ago   782MB
+confluentinc/cp-zookeeper         7.2.1            3f28db6a433d   12 months ago   782MB
+confluentinc/cp-zookeeper         latest           3f28db6a433d   12 months ago   782MB
+confluentinc/cp-kafka-rest        7.2.1            784b8061ad0c   12 months ago   1.76GB
+cnfldemos/kafka-connect-datagen   0.5.3-7.1.0      de0e2396b904   15 months ago   1.46GB
+zookeeper                         3.6.2            a72350516291   2 years ago     268MB
+bsucaciu/kafka                    2.6.0            cbe9ab39d5fc   2 years ago     642MB
+bsucaciu/kerberos-producer        1.0.0            eb27c056cc20   2 years ago     354MB
+bsucaciu/kerberos-consumer        1.0.0            5486c13e058b   2 years ago     354MB
+bsucaciu/kerberos                 krb5             ce76df4cb4a8   2 years ago     61MB
+<none>                            <none>           60795747b2e6   43 years ago    274MB
+paketobuildpacks/builder          base             d405df64bebf   43 years ago    1.34GB
+paketobuildpacks/builder          <none>           71badb65e5f6   43 years ago    1.41GB
+catalog-service                   0.0.1-SNAPSHOT   8e7371eec325   43 years ago    277MB
+catalog-service-03                0.0.1-SNAPSHOT   6b4c778c3417   43 years ago    276MB
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker compose up -d
+[+] Running 1/0
+ ✔ Network catalog-service_default  Created                                                                                                                                                                                        0.1s
+ ⠋ Container catalog-service        Creating                                                                                                                                                                                       0.0s
+Error response from daemon: Conflict. The container name "/catalog-service" is already in use by container "9e5030296fb9e05b79746bf26f592c34671f58a0c5083031a93f550e1201af91". You have to remove (or rename) that container to be able to reuse that name.
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker ps -a
+CONTAINER ID   IMAGE                               COMMAND              CREATED       STATUS                     PORTS     NAMES
+9e5030296fb9   catalog-service-03:0.0.1-SNAPSHOT   "/cnb/process/web"   6 weeks ago   Exited (143) 6 weeks ago             catalog-service
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker rm catalog-service
+catalog-service
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker compose up -d
+[+] Running 1/1
+ ✔ Container catalog-service  Started                                                                                                                                                                                              0.3s
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker ps
+CONTAINER ID   IMAGE                            COMMAND              CREATED          STATUS          PORTS                                       NAMES
+cb07b86c052c   catalog-service:0.0.1-SNAPSHOT   "/cnb/process/web"   16 seconds ago   Up 15 seconds   0.0.0.0:8080->9001/tcp, :::8080->9001/tcp   catalog-service
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker volume ls
+DRIVER    VOLUME NAME
+local     2c3f25c31ed103680e2cc214033e238c1bbb066ee3c54446cf062e35cf0af4b4
+local     2cab307b7535711ec9e6adefd2be5507d0a33a641d5ba5c6a9cb98fbf79db5be
+local     3ae6c03830036af6e4ab7e805291aa368f2dd57c7e11ba1f8a28bfe26307e57d
+local     4a83c0e37bb72b2440bb1a079350fb336d2a3cc51de4479569d7c4e1ad539604
+local     5a774ccfb905a5b30a3844df269075a345910998be93bff1a8684153053cb40f
+local     5dc6fcb41b0c078efa825f8ce14aa0ed2d388b175c25627eb924ca1891cb3018
+local     8e28215cbdce2c32b49a4f32932b4660bffa76cf389c890fd50f301e81901fb0
+local     21e38fc2fe433ce463c8141ceb8c96b04dff234584ae3d4fac46ea856b6c842a
+local     51b3a72091b5f86795285a426220e919d1e5a14f12c075313f318a5fddcc1660
+local     52db2afbb3d13dadf5d143558adcee4add3daa9e45de8d4c77c2f5a075a8b369
+local     86d30da88a71fafbea307013bf6159d359b08c151445a086b6a277a16fb21d57
+local     87bf0c0ff3921e13b1f003a77c7adf057ae6bc9c4d9046f749eb291227acea24
+local     94e9e0d5fe3a1721cee8853d9c4a3ea154d90f92a5eaa81c2486132efd5e2212
+local     160c6859b81b9b3377137dbf9b37da1ba540418fe04cfd635c96de5fb54f9951
+local     489d08af96da1f31a565506d3703fbd450108131125bb8f90c2b9c572b7150f4
+local     944f276bfc09da12a00def4165c216cdf6f6abcaf18ed025f461f5de2ba773f1
+local     1523eae4189c44bc72b47f82ec5127e3d5b77f0516bb933db6c8954a5b436098
+local     2813fbc5c780259eef1236cc529179975a805f05a3104199a378f3f0841a55a0
+local     06913edd59af9c833d6504f3591edb90abf19a3a4a8be7f69df2de75b862a600
+local     329516ea43eb8b3ca945defce754e40ca61a806c835c51dde11e803702878f64
+local     a0f66ec42a286d69b15f22fc72628e3bbf209dcd45030c74abb93eca242ee6ef
+local     e3dcab63ff18ba768e360b52ddf266558dc6861e378dd015cd548aca5037171d
+local     e358a61d6856fde944f9b81ccec9ccda29927c5531b44d2fd2ead28a889d4312
+local     ead71249c1ba08239effbced2d392c94a47991a0dd1b02e8d2450434f2255151
+local     ef7bac7f916def2ef887d174bd0c51e8d584716e1d5a480e5783412148df33f1
+local     f58cd171e588f7bd4f1f25ae296ca34b1b278eddbf97d8917fec55f4af1d4442
+local     ff6bb38453bc85829d10d7948fa5737745e27432e5d9cfc6a3facf6244c04d85
+local     pack-cache-0835c272a0bf.build
+local     pack-cache-0835c272a0bf.launch
+local     pack-cache-f504f211694a.build
+local     pack-cache-f504f211694a.launch
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker volume prune
+WARNING! This will remove anonymous local volumes not used by at least one container.
+Are you sure you want to continue? [y/N] y
+Total reclaimed space: 0B
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker volume ls
+DRIVER    VOLUME NAME
+local     2c3f25c31ed103680e2cc214033e238c1bbb066ee3c54446cf062e35cf0af4b4
+local     2cab307b7535711ec9e6adefd2be5507d0a33a641d5ba5c6a9cb98fbf79db5be
+local     3ae6c03830036af6e4ab7e805291aa368f2dd57c7e11ba1f8a28bfe26307e57d
+local     4a83c0e37bb72b2440bb1a079350fb336d2a3cc51de4479569d7c4e1ad539604
+local     5a774ccfb905a5b30a3844df269075a345910998be93bff1a8684153053cb40f
+local     5dc6fcb41b0c078efa825f8ce14aa0ed2d388b175c25627eb924ca1891cb3018
+local     8e28215cbdce2c32b49a4f32932b4660bffa76cf389c890fd50f301e81901fb0
+local     21e38fc2fe433ce463c8141ceb8c96b04dff234584ae3d4fac46ea856b6c842a
+local     51b3a72091b5f86795285a426220e919d1e5a14f12c075313f318a5fddcc1660
+local     52db2afbb3d13dadf5d143558adcee4add3daa9e45de8d4c77c2f5a075a8b369
+local     86d30da88a71fafbea307013bf6159d359b08c151445a086b6a277a16fb21d57
+local     87bf0c0ff3921e13b1f003a77c7adf057ae6bc9c4d9046f749eb291227acea24
+local     94e9e0d5fe3a1721cee8853d9c4a3ea154d90f92a5eaa81c2486132efd5e2212
+local     160c6859b81b9b3377137dbf9b37da1ba540418fe04cfd635c96de5fb54f9951
+local     489d08af96da1f31a565506d3703fbd450108131125bb8f90c2b9c572b7150f4
+local     944f276bfc09da12a00def4165c216cdf6f6abcaf18ed025f461f5de2ba773f1
+local     1523eae4189c44bc72b47f82ec5127e3d5b77f0516bb933db6c8954a5b436098
+local     2813fbc5c780259eef1236cc529179975a805f05a3104199a378f3f0841a55a0
+local     06913edd59af9c833d6504f3591edb90abf19a3a4a8be7f69df2de75b862a600
+local     329516ea43eb8b3ca945defce754e40ca61a806c835c51dde11e803702878f64
+local     a0f66ec42a286d69b15f22fc72628e3bbf209dcd45030c74abb93eca242ee6ef
+local     e3dcab63ff18ba768e360b52ddf266558dc6861e378dd015cd548aca5037171d
+local     e358a61d6856fde944f9b81ccec9ccda29927c5531b44d2fd2ead28a889d4312
+local     ead71249c1ba08239effbced2d392c94a47991a0dd1b02e8d2450434f2255151
+local     ef7bac7f916def2ef887d174bd0c51e8d584716e1d5a480e5783412148df33f1
+local     f58cd171e588f7bd4f1f25ae296ca34b1b278eddbf97d8917fec55f4af1d4442
+local     ff6bb38453bc85829d10d7948fa5737745e27432e5d9cfc6a3facf6244c04d85
+local     pack-cache-0835c272a0bf.build
+local     pack-cache-0835c272a0bf.launch
+local     pack-cache-f504f211694a.build
+local     pack-cache-f504f211694a.launch
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker compose down
+[+] Running 2/2
+ ✔ Container catalog-service        Removed                                                                                                                                                                                        0.4s
+ ✔ Network catalog-service_default  Removed                                                                                                                                                                                        0.4s
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker volume prune
+WARNING! This will remove anonymous local volumes not used by at least one container.
+Are you sure you want to continue? [y/N] y
+Total reclaimed space: 0B
+willem@linux-laptop:~/git/cnsia/catalog-service$
+
