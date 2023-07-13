@@ -8,5 +8,31 @@ server:
       max: 50
       min-spare: 5
 
+spring:
+  application:
+    name: catalog-service
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: http://localhost:8888
+      request-connect-timeout: 5000 # 5s
+      request-read-timeout: 5000 # 5s
+      fail-fast: false # build fails when config server is offline In production, set to true
+      retry:
+        max-attempts: 6
+        initial-interval: 1000 # 1s
+        max-interval: 2000 # 2s
+        multiplier: 1.1
+
+# actuator config to trigger refresh after a config-service update was reported with:
+# $ http POST :9001/actuator/refresh
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+# Defaults in case the config server cannot be reached
 polar:
   greeting: Bumblebee
