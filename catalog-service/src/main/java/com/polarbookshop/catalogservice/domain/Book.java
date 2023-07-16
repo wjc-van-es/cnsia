@@ -58,4 +58,28 @@ public record Book(
                 return new Book(null, isbn, title, author, price, null, null, 0);
         }
 
+
+        // We have overwritten equals and hashcode to omit the technical JDBC fields and compare objects
+        // only by their natural key, not by their DB PK identity, version and auditing fields
+        @Override
+        public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                Book book = (Book) o;
+
+                if (!isbn.equals(book.isbn)) return false;
+                if (!title.equals(book.title)) return false;
+                if (!author.equals(book.author)) return false;
+                return price.equals(book.price);
+        }
+
+        @Override
+        public int hashCode() {
+                int result = isbn.hashCode();
+                result = 31 * result + title.hashCode();
+                result = 31 * result + author.hashCode();
+                result = 31 * result + price.hashCode();
+                return result;
+        }
 }

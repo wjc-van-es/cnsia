@@ -6,15 +6,18 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//Tests are temporary disabled as the application context tries to create a JDBC Repo which tries to connect to the DB
-//We will see how to set up a database instance for running the integration test
-@Disabled
+/**
+ * We added the integration profile to make sure the ApplicationContext makes use of the container managed by
+ * org.testcontainers:postgresql with the configuration at {@see application-integration.yml}
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("integration")
 class CatalogServiceApplicationTests {
 
     @Autowired
