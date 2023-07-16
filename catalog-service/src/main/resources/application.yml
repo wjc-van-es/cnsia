@@ -24,6 +24,16 @@ spring:
         initial-interval: 1000 # 1s
         max-interval: 2000 # 2s
         multiplier: 1.1
+  sql:
+    init:
+      mode: always
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:5432/polardb_catalog
+    hikari:
+      connection-timeout: 2000
+      maximum-pool-size: 5
 
 # actuator config to trigger refresh after a config-service update was reported with:
 # $ http POST :9001/actuator/refresh

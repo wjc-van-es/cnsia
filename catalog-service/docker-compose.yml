@@ -8,3 +8,18 @@ services:
     ports:
       - '8080:9001'
     image: 'catalog-service:0.0.1-SNAPSHOT'
+
+  postgresql:
+    container_name: polar-postgres
+    environment:
+      - POSTGRES_DB=polardb_catalog
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'polar-postgres:/var/lib/postgresql/data'
+    image: 'postgres:15.3'
+
+volumes:
+  polar-postgres:
