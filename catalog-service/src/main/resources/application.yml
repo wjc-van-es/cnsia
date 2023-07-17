@@ -24,9 +24,10 @@ spring:
         initial-interval: 1000 # 1s
         max-interval: 2000 # 2s
         multiplier: 1.1
-  sql:
-    init:
-      mode: always
+  ##  DB init script at catalog-service/src/main/resources/schema.sql is made obsolete by Flyway DB
+#  sql:
+#    init:
+#      mode: always
   datasource:
     username: user
     password: password
@@ -34,6 +35,13 @@ spring:
     hikari:
       connection-timeout: 2000
       maximum-pool-size: 5
+## We added extra flyway instructions
+## as a realistic production-like scenario where the schema already holds valuable data in various tables
+## and therefore, tables cannot be dropped and recreated on a whim
+## (of course this should also be a consideration defining the sql scripts themselves)
+  flyway:
+    baseline-description: 'Flyway Baseline with book table already present'
+    baseline-on-migrate: true # we want to baseline a non-empty schema,
 
 # actuator config to trigger refresh after a config-service update was reported with:
 # $ http POST :9001/actuator/refresh

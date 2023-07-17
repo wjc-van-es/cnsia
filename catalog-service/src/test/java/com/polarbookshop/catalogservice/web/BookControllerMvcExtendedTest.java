@@ -60,7 +60,7 @@ class BookControllerMvcExtendedTest {
     void whenIsbnIsInvalidThenShouldReturn400() throws Exception {
         var isbn = "1234561232";
         var msg = "A book with ISBN " + isbn + " already exists.";
-        var book = Book.of(isbn, "The meaning of nothing", "B. McNair", 24.95);
+        var book = Book.of(isbn, "The meaning of nothing", "B. McNair", 24.95, null);
         String content = objectMapper.writeValueAsString(book);
         given(bookService.addBookToCatalog(book)).willThrow(new BookAlreadyExistsException(isbn));
         mockMvc

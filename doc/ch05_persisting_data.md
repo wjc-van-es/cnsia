@@ -79,6 +79,10 @@ backing service with Docker.
     CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
     $
     ```
+    
+## 5.4 Managing databases in production with Flyway
+
+
 ## List of consulted resources
 - [https://hub.docker.com/_/postgres](https://hub.docker.com/_/postgres)
 - [https://www.composerize.com/](https://www.composerize.com/)
@@ -90,3 +94,10 @@ backing service with Docker.
 - [https://java.testcontainers.org/](https://java.testcontainers.org/)
   - [https://java.testcontainers.org/modules/databases/jdbc/](https://java.testcontainers.org/modules/databases/jdbc/)
 - [https://stackoverflow.com/questions/70017400/how-to-have-a-custom-equals-hashcode-for-records](https://stackoverflow.com/questions/70017400/how-to-have-a-custom-equals-hashcode-for-records)
+
+- [https://flathub.org/apps/io.dbeaver.DBeaverCommunity](https://flathub.org/apps/io.dbeaver.DBeaverCommunity)
+- [https://mvnrepository.com/artifact/org.flywaydb/flyway-core](https://mvnrepository.com/artifact/org.flywaydb/flyway-core)
+- [https://stackoverflow.com/questions/53172123/flyway-found-non-empty-schemas-public-without-schema-history-table-use-bas](https://stackoverflow.com/questions/53172123/flyway-found-non-empty-schemas-public-without-schema-history-table-use-bas)
+- [https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.data-migration](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.data-migration)
+- [https://www.postgresql.org/docs/current/ddl-alter.html](https://www.postgresql.org/docs/current/ddl-alter.html)
+- 
