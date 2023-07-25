@@ -100,3 +100,6 @@ out/
 
 # compiled go example
 /Chapter02/02-oo/hello
+
+# inspection of extracted jar files
+jar_extracts/

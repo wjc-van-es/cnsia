@@ -1,0 +1,109 @@
+willem@linux-laptop:~/git/cnsia$ docker login ghcr.io
+Username: wjc-van-es
+Password:
+WARNING! Your password will be stored unencrypted in /home/willem/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+willem@linux-laptop:~/git/cnsia$ cat ../../.docker/config.json
+### (content not shown)
+willem@linux-laptop:~/git/cnsia$ mkdir my-java-image
+willem@linux-laptop:~/git/cnsia$ cd my-java-image/
+willem@linux-laptop:~/git/cnsia/my-java-image$ docker build -t my-java-image:1.0.0 .
+willem@linux-laptop:~/git/cnsia/my-java-image$ docker run --rm my-java-image:1.0.0
+openjdk 11.0.19 2023-04-18
+OpenJDK Runtime Environment (build 11.0.19+7-post-Ubuntu-0ubuntu122.04.1)
+OpenJDK 64-Bit Server VM (build 11.0.19+7-post-Ubuntu-0ubuntu122.04.1, mixed mode, sharing)
+willem@linux-laptop:~/git/cnsia/my-java-image$ docker tag my-java-image:1.0.0 \
+> ghcr.io/wjc-van-es/my-java-image:1.0.0
+willem@linux-laptop:~/git/cnsia/my-java-image$ docker push ghcr.io/wjc-van-es/my-java-image:1.0.0
+The push refers to repository [ghcr.io/wjc-van-es/my-java-image]
+e6cf09827117: Pushed
+59c56aee1fb4: Pushed
+1.0.0: digest: sha256:3c3b014fa0dd2504ab94a3ae65499d2099b0ed1ef03b7fe31238e140c6a62a35 size: 742
+willem@linux-laptop:~/git/cnsia/my-java-image$ cd ../catalog-service/
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker search --filter is-official=true openjdk
+NAME                  DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+openjdk               Pre-release / non-production builds of OpenJ…   3688      [OK]
+eclipse-temurin       Official Images for OpenJDK binaries built b…   383       [OK]
+sapmachine            Official SapMachine Docker Image, SAP's buil…   45        [OK]
+ibm-semeru-runtimes   IBM Semeru Runtimes Official Images for Open…   30        [OK]
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker search --filter is-official=true eclipse-temurin
+NAME              DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+adoptopenjdk      DEPRECATED; use https://hub.docker.com/_/ecl…   364       [OK]
+eclipse-temurin   Official Images for OpenJDK binaries built b…   383       [OK]
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker search --filter is-official=true eclipse-temurin:17
+NAME      DESCRIPTION   STARS     OFFICIAL   AUTOMATED
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker pull eclipse-temurin:17
+17: Pulling from library/eclipse-temurin
+9d19ee268e0d: Already exists
+f2b566cb887b: Pull complete
+b375e6654ef5: Pull complete
+19452d1108a6: Pull complete
+Digest: sha256:638d0adcd35fc5fa5f9065307d7c458e2589b500951c001c42a1a0d6c3f71e6c
+Status: Downloaded newer image for eclipse-temurin:17
+docker.io/library/eclipse-temurin:17
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker build -t catalog-service .
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker network create catalog-network
+64998b63c14e686c640cac76baf12724332316d0facb4ec57410af6086e44297
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker network ls
+NETWORK ID     NAME              DRIVER    SCOPE
+6a7290dfb3c8   bridge            bridge    local
+64998b63c14e   catalog-network   bridge    local
+fb9f07672f4c   host              host      local
+096efabe935a   kind              bridge    local
+f22bbd812450   none              null      local
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker network inspect catalog-network
+[
+    {
+        "Name": "catalog-network",
+        "Id": "64998b63c14e686c640cac76baf12724332316d0facb4ec57410af6086e44297",
+        "Created": "2023-07-24T21:14:48.107371766+02:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16",
+                    "Gateway": "172.19.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker run -d --rm --name polar-postgres -v polar-postgres:/var/lib/postgresql/data --net catalog-network -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=polardb_catalog -p 5432:5432 postgres:15.3
+203081f63f5bfb9d114442396821f8422d7a98a5f42a2002f40cd1fab3a9cd63
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker run -d  --name catalog-service --net catalog-network -p 9001:9001 -e SPRING_DATASOURCE_URL=jdbc:postgresql://polar-postgres:5432/polardb_catalog catalog-service:latest
+7018f42fe78661e666ad1f3c8fd3d8fc65329e3cf8d925c70a59edc906bacfad
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+7018f42fe786   catalog-service:latest   "java -jar catalog-s…"   7 seconds ago    Up 7 seconds    0.0.0.0:9001->9001/tcp, :::9001->9001/tcp   catalog-service
+203081f63f5b   postgres:15.3            "docker-entrypoint.s…"   22 minutes ago   Up 22 minutes   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   polar-postgres
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker stop catalog-service
+catalog-service
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS                       PORTS                                       NAMES
+7018f42fe786   catalog-service:latest   "java -jar catalog-s…"   27 minutes ago   Exited (143) 6 seconds ago                                               catalog-service
+203081f63f5b   postgres:15.3            "docker-entrypoint.s…"   49 minutes ago   Up 49 minutes                0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   polar-postgres
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker rm catalog-service
+catalog-service
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker stop polar-postgres
+polar-postgres
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+willem@linux-laptop:~/git/cnsia/catalog-service$
+
