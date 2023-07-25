@@ -30,7 +30,7 @@
 
 			<!-- version added to advance beyond spring-boot-starter-parent to fix a vulnerability-->
 			<!-- Grype GHSA-36p3-wjmg-h94x-spring-boot-starter-web -->
-			<!--<version>2.5.12</version>-->
+			<version>3.1.2</version>
 		</dependency>
 
 		<dependency>
@@ -81,7 +81,7 @@
 
 			<!-- version added to advance beyond spring-boot-starter-parent to fix a vulnerability-->
 			<!-- Grype GHSA-36p3-wjmg-h94x-spring-boot-starter-webflux -->
-			<!--<version>2.5.12</version>-->
+			<version>3.1.2</version>
 			<scope>test</scope>
 		</dependency>
 
