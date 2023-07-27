@@ -180,3 +180,38 @@ perl-base                       5.36.0-7           (won't fix)              deb 
 perl-modules-5.36               5.36.0-7           (won't fix)              deb        CVE-2023-31484       High
 ```
 The most recent image for postgres is still 15.3
+
+### 6.2.4 Containerizing Spring Boot with Cloud Native Buildpacks
+For now, we have the following setting in [../catalog-service/pom.xml](../catalog-service/pom.xml)
+- Using [https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/#goals-build-image](https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/#goals-build-image)
+- `${module.image.name}` includes the repository name and the repository account namespace
+- Furthermore, `${project.version}` is used as tag
+- We may use automatic pushing to ghcr.io using this example: 
+  [https://stackoverflow.com/questions/64849028/maven-spring-boot-cannot-push-docker-image](https://stackoverflow.com/questions/64849028/maven-spring-boot-cannot-push-docker-image)
+- Currently, we pushed manually without any problems: `docker push ghcr.io/wjc-van-es/catalog-service:0.0.1-SNAPSHOT`
+```xml
+<project>
+  ...
+  <properties>
+    ...
+    <module.image.name>ghcr.io/wjc-van-es/${project.name}</module.image.name>
+  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <!--<imageName>${module.image.name}</imageName>-->
+          <image>
+            <name>${module.image.name}:${project.version}</name>
+            <env>
+              <BP_JVM_VERSION>17.*</BP_JVM_VERSION>
+            </env>
+          </image>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+```
