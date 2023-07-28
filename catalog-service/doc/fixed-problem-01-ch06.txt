@@ -1,0 +1,118 @@
+Friday, 28-07-2023,
+Starting with
+6.3 Managing Spring Boot containers with Docker Compose
+6.3.1 Using Docker Compose to manage the CLI container include life cycle
+    --
+First of all the volume defined in catalog-service/docker-compose.yml is listed as
+catalog-service_polar-postgres and is newly created
+The old volume is simply called polar-postgres and was made on the command line with
+docker volume create polar-postgres
+We can inspect both:
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker volume inspect polar-postgres
+[
+    {
+        "CreatedAt": "2023-07-16T17:01:25+02:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/polar-postgres/_data",
+        "Name": "polar-postgres",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+willem@linux-laptop:~/git/cnsia/catalog-service$ docker volume inspect catalog-service_polar-postgres
+[
+    {
+        "CreatedAt": "2023-07-15T22:15:32+02:00",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.project": "catalog-service",
+            "com.docker.compose.version": "2.19.1",
+            "com.docker.compose.volume": "polar-postgres"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/catalog-service_polar-postgres/_data",
+        "Name": "catalog-service_polar-postgres",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+willem@linux-laptop:~/git/cnsia/catalog-service$
+
+So the docker compose leads to a brand-new empty volume catalog-service_polar-postgres and the old
+volume polar-postgres is NOT mapped to the docker compose postgresql service, but the catalog-service_polar-postgres
+is instead.
+
+We could somehow copy the content from the former to the latter volume, but since we are still in a development
+scenario this isn't really necessary.
+
+We see the advantage of the Flyway scripts in catalog-service/src/main/resources/db/migration be run once as soon as
+the catalog-service application starts running in its container so there is a postgresql database schema ready with
+a book table, and we can refill it with the HTTP POST calls from Insomnia.
+
+There is also a new flyway_schema_history table created with two records the first with the initial schema with the
+creation of the book table and the second record that adds the publisher column.
+
+When you stop and start the docker compose configuration again the volume catalog-service_polar-postgres appears to be
+persisting and the same data inserted amd modified into the book table remains available.
+
+    --
+The second problem occurred when we tried to add a third book with two authors in the author field that exceeded the
+length limit of 30 characters as defined in catalog-service/src/main/resources/db/migration/V1__Initial_schema.sql
+But this is an excellent example for the ease of using Flyway to evolve our database schema.
+It isn´t possible to shrink the dimension of a table column, but expanding it is easy (Therefore it is wise
+to be conservative with table column dimensions, to conserve memory space and still be able to expand when necessary).
+
+So the procedure was
+1.  willem@linux-laptop:~/git/cnsia/catalog-service$ docker compose down
+2.  write catalog-service/src/main/resources/db/migration/V3__Alter_author_column_size_to_book_table.sql to scale
+    column author from varchar(30) to varchar(50)
+3.  increase the value of ${project.version} to have a new image tag.
+4.  willem@linux-laptop:~/git/cnsia/catalog-service$ sdk env
+5.  willem@linux-laptop:~/git/cnsia/catalog-service$ mvn spring-boot:build-image -e
+6.  willem@linux-laptop:~/git/cnsia/catalog-service$ docker push ghcr.io/wjc-van-es/catalog-service:0.0.2-SNAPSHOT
+7.  adjust services.catalog-service.image in catalog-service/docker-compose.yml to the in step 5 newly created version
+8.  willem@linux-laptop:~/git/cnsia/catalog-service$ docker compose up -d
+    [+] Running 3/3
+     ✔ Network catalog-service_default  Created                                                                                                                                                                                        0.1s
+     ✔ Container polar-postgres         Started                                                                                                                                                                                        0.4s
+     ✔ Container catalog-service        Started                                                                                                                                                                                        0.6s
+    willem@linux-laptop:~/git/cnsia/catalog-service$ docker ps -a
+    CONTAINER ID   IMAGE                                               COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+    fb2761522a2a   ghcr.io/wjc-van-es/catalog-service:0.0.2-SNAPSHOT   "/cnb/process/web"       15 seconds ago   Up 14 seconds   0.0.0.0:9001->9001/tcp, :::9001->9001/tcp   catalog-service
+    9d6380c93d83   postgres:15.3                                       "docker-entrypoint.s…"   15 seconds ago   Up 14 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   polar-postgres
+    willem@linux-laptop:~/git/cnsia/catalog-service$
+
+Notes
+ad 5.   displayed an error, because we made mistakes in the syntax of
+        catalog-service/src/main/resources/db/migration/V3__Alter_author_column_size_to_book_table.sql
+        it took some iterations to get it right although the instruction at
+        https://www.postgresql.org/docs/current/ddl-alter.html#id-1.5.4.8.10 5.6.6. Changing a Column's Data Type
+        was pretty clear.
+ad 8.   Besides the two containers being created and started, we also see an automatically created Network named
+        catalog-service_default that is shared among the containers of the docker compose configuration and the
+        built-in DNS server makes it possible for the containers to interact with each other through their container
+        names. Hence, contrary to the bare docker CLI, with docker compose no explicit network needs to be defined
+        for this to work.
+Inspecting the altered schema with DBeaver immediately revealed the changes with running
+select * from flyway_schema_history;
+Looking into the properties of polardb_catalog.public.table.author column from the Projects tab was stubbornly cached
+and took some refreshing on different levels to see Data type varchar(50) instead of the old varchar(30).
+
+Retrying the HTTP POST http://localhost:9001/books to add
+{
+	"isbn": "9781633438958",
+	"author": "Martin Štefanko and Jan Martiška",
+	"title": "Artic & Antartic Quarkus in Action",
+	"price": 19.90
+}
+Now worked with no problems as did HTTP PUT http://localhost:9001/books/9781633438958
+{
+	"isbn": "9781633438958",
+	"author": "Martin Štefanko and Jan Martiška",
+	"title": "Artic & Antartic Quarkus in Action",
+	"price": 33.59,
+	"publisher": "Manning Publications Co."
+}
+to change the price and add the optional publisher field.
+
+So far a positive and easily manageable experience.

@@ -1,13 +1,20 @@
 ---
 # created from docker cli at https://www.composerize.com/
 # docker run --rm --name catalog-service -p 8080:9001 catalog-service:0.0.1-SNAPSHOT
-version: '3.3'
+version: '3.8'
 services:
   catalog-service:
+    depends_on:
+      postgresql:
+        condition: service_started
     container_name: catalog-service
     ports:
-      - '8080:9001'
-    image: 'catalog-service:0.0.1-SNAPSHOT'
+      - '9001:9001'
+    environment:
+      - BPL_JVM_THREAD_COUNT=50
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://polar-postgres:5432/polardb_catalog
+
+    image: 'ghcr.io/wjc-van-es/catalog-service:0.0.2-SNAPSHOT'
 
   postgresql:
     container_name: polar-postgres
@@ -18,7 +25,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - 'polar-postgres:/var/lib/postgresql/data'
+      - polar-postgres:/var/lib/postgresql/data
     image: 'postgres:15.3'
 
 volumes:
