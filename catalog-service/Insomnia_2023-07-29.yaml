@@ -1,0 +1,547 @@
+_type: export
+__export_format: 4
+__export_date: 2023-07-29T15:26:09.574Z
+__export_source: insomnia.desktop.app:v2023.1.0
+resources:
+  - _id: req_069746a1a6f64d14ab150c2e46f2f992
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1690643697559
+    created: 1690643525657
+    url: http://localhost:9001/books/9781617298425
+    name: DEL /books/9781617298425
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1690643525657
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_c3661bdde2b74564b8f79194ff8c2782
+    parentId: null
+    modified: 1685391565252
+    created: 1685391565252
+    name: New Document
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: req_5c9a2f6240bc4e70ae168bb57ac1812e
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685391980066
+    created: 1685391565259
+    url: http://localhost:9001
+    name: root with system info
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1685391565259
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d57130a0a8724f0f8df9a2a20257eb55
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685392404308
+    created: 1685392392128
+    url: http://localhost:9001/books/1234567891
+    name: GET /books/1234567891
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1685391565234
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b1cefa72020b4582a019ec079eb6d848
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685393792108
+    created: 1685393787759
+    url: http://localhost:9001/books/9781617298424
+    name: GET /books/9781617298424
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1685391565227.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_cee9cb19528646388b97983d7d6de562
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685393495247
+    created: 1685393433125
+    url: http://localhost:9001/books
+    name: GET /books
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1685391565221.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_416760c2ebd948458e8629dfc88596d5
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1689027165911
+    created: 1689027148162
+    url: http://localhost:8080/books
+    name: 8080 GET /books
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1685391565215.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4734aac741a544fd9319cb04f4a84249
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685392480574
+    created: 1685392047156
+    url: http://localhost:9001/books
+    name: Post /books book with isbn="1234567891"
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "1234567891",
+        	"author": "Lyra Silverstar",
+        	"title": "Northern Lights",
+        	"price": 9.90
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565209
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a9f5ce43ce844b8994d012b9f9f828d1
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1689027097672
+    created: 1689027088517
+    url: http://localhost:8080/books
+    name: 8080 Post /books book with isbn="1234567891"
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "1234567891",
+        	"author": "Lyra Silverstar",
+        	"title": "Northern Lights",
+        	"price": 9.90
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565202.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1dd3466f4ce74f7c99d07eaf8d6777d3
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685397308080
+    created: 1685397246976
+    url: http://localhost:9001/books
+    name: Post /books book with invalid (to short) isbn="123456789"
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "123456789",
+        	"author": "Jimmy Carefree",
+        	"title": "I can't be bothered with ISBN validity",
+        	"price": 9.90
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565196.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3c1ee81d25154989a3fb0148c1c25dc1
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685393701372
+    created: 1685393594889
+    url: http://localhost:9001/books
+    name: Post /books book with isbn="9781617298424"
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "9781617298424",
+        	"author": "THOMAS VITALE",
+        	"title": "Cloud Native Spring in Action at the North Pole",
+        	"price": 19.90
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565184
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a5bd4acdb24b4e2c9e7cbecd6ea93d4e
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1690643947576
+    created: 1690643832105
+    url: http://localhost:9001/books
+    name: Post /books book with isbn="9781617298425"
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "9781617298425",
+        	"author": "THOMAS VITALE",
+        	"title": "Cloud Native Spring in Action at the Antartic",
+        	"publisher": "Wacky Publishers for weirdo's",
+        	"price": 19.90
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565182.4375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_427c8ef68f414dbf91ce9f0820d63755
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1690577620905
+    created: 1690577545725
+    url: http://localhost:9001/books
+    name: Post /books book with isbn="9781633438958"
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "9781633438958",
+        	"author": "Martin Štefanko and Jan Martiška",
+        	"title": "Artic & Antartic Quarkus in Action",
+        	"price": 19.90
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565180.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e261dc8ce0c74b1087ef5475e6c2ef7e
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1689027127514
+    created: 1689027120965
+    url: http://localhost:8080/books
+    name: 8080 Post /books book with isbn="9781617298424"
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "9781617298424",
+        	"author": "THOMAS VITALE",
+        	"title": "Cloud Native Spring in Action at the North Pole",
+        	"price": 19.90
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565177.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_af30fd4bcb9e4158a71f8e68cc7b621f
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685917724432
+    created: 1685397383378
+    url: http://localhost:9001/books
+    name: Post /books book with isbn="97816172A98429" Invalid because the price is
+      missing & ISBN invalid
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "97816172A98429",
+        	"author": "THOMAS VITALE",
+        	"title": "Give it all away for free"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565171.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a28d5f6fc2d1498eaa082509ea888f80
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1690491983003
+    created: 1685392588341
+    url: http://localhost:9001/books/1234567891
+    name: Put /books/1234567891 change price to 9.99
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "1234567891",
+        	"author": "Lyra Silverstar",
+        	"title": "Northern Lights",
+        	"price": 19.75,
+        	"publisher": "Polarsophia"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565159
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_34fb10ef07a44b9e9510e4879396fcf9
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685397492272
+    created: 1685397482570
+    url: http://localhost:9001/books/1234567891
+    name: Put /books/1234567891 change price to -9.99 to receive a bonus
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "1234567891",
+        	"author": "Lyra Silverstar",
+        	"title": "Northern Lights",
+        	"price": -9.99
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565134
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_338db8ed50ea4f0d9d70d129b0f6b7c1
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1690640179306
+    created: 1685393820463
+    url: http://localhost:9001/books/9781617298424
+    name: Put /books/9781617298424 change price to 19.99
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "9781617298424",
+        	"title": "Cloud Native Spring in Action at the North Pole",
+        	"author": "THOMAS VITALE",
+        	"price": 5.75,
+        	"publisher": "Artic Endeavor Books"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565109
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_de51bb51b2354c08886875c955238b59
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1690579772993
+    created: 1690579463734
+    url: http://localhost:9001/books/9781633438958
+    name: Put /books/9781633438958 add publisher
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"isbn": "9781633438958",
+        	"author": "Martin Štefanko and Jan Martiška",
+        	"title": "Artic & Antartic Quarkus in Action",
+        	"price": 33.59,
+        	"publisher": "Manning Publications Co."
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685391565059
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_b4fcaa7a18544b4e6d79905147b64b9b06e7204b
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685391565255
+    created: 1685391565255
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1685391565255
+    _type: environment
+  - _id: jar_b4fcaa7a18544b4e6d79905147b64b9b06e7204b
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685391565256
+    created: 1685391565256
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_c4ad6dea31dd43729322c65af2005402
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685392921974
+    created: 1685391565253
+    fileName: PolarBookShop
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: uts_d34b68045f004914b0e666784cf89ea1
+    parentId: wrk_c3661bdde2b74564b8f79194ff8c2782
+    modified: 1685391565260
+    created: 1685391565260
+    name: Example Test Suite
+    _type: unit_test_suite

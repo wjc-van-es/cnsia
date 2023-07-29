@@ -215,3 +215,30 @@ For now, we have the following setting in [../catalog-service/pom.xml](../catalo
   </build>
 </project>
 ```
+
+### 6.3.2 Debugging Spring Boot containers
+#### Set up
+Just set up [../catalog-service/docker-compose.yml](../catalog-service/docker-compose.yml) with
+- the extra port mapping `8001:8001` and
+- the two extra **_Paketo Buildpacks_** environment variables:
+  - `BPL_DEBUG_ENABLED=true`
+  - `BPL_DEBUG_PORT=8001`
+- Now setting up the **IntelliJ** with the **_catalog-service Container Debug_** configuration
+  ![IntelliJ remote debug config](images/IntelliJRemoteDebugConfig.png)
+- Also put the Request timeout (ms) of the **Insomnia** HTTP test client to 300000 ( = 300000 / (60 * 1000) = 5 minutes)
+  Through the menu _Application > Preferences > General tab (scroll down to the header **Request / Response**)_
+
+#### Testing it
+- From the directory with the docker-compose.yml `docker compose up -d`
+- Start the **_catalog-service Container Debug_** in **IntelliJ**
+- Set some breakpoints in 
+  [com.polarbookshop.catalogservice.domain.BookService#editBookDetails](../catalog-service/src/main/java/com/polarbookshop/catalogservice/domain/BookService.java)
+  and
+- Send an HTTP PUT request from **Insomnia** and you can step through the method and see the available data from the
+  request body and the database retrieval.
+- When you finish the debug session within 5 minutes you will get the appropriate response back in Insomnia
+- Once you stop the **_catalog-service Container Debug_** in **IntelliJ** session in the IDE you can continue sending 
+  Put requests and get fast responses without any debug breakpoint suspensions. So you can keep your
+  [../catalog-service/docker-compose.yml](../catalog-service/docker-compose.yml) set up without any responsiveness
+  penalty when the **IntelliJ** **_catalog-service Container Debug_** session isn't running.
+- When you're done stop the containers with `docker compose down`

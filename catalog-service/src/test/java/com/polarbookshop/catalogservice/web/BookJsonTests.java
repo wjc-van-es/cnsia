@@ -63,4 +63,20 @@ class BookJsonTests {
                 .isEqualTo(new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarsophia", instant, instant, 21));
     }
 
+    @Test
+    void testDeserializeMissingOptionalFields() throws Exception {
+        var content = """
+                {
+                    "isbn": "1234567890",
+                    "title": "Title",
+                    "author": "Author",
+                    "price": 9.90,
+                    "version": 0
+                }
+                """;
+        assertThat(json.parse(content))
+                .usingRecursiveComparison()
+                .isEqualTo(Book.of("1234567890", "Title", "Author", 9.90, null));
+    }
+
 }
