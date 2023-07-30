@@ -279,5 +279,13 @@ Now we took over the new `package` job with some notable adjustments
     - Now overriding `module.image.name` on the command line can be done with Maven:
       `mvn spring-boot:build-image -Dmodule.image.name=ghcr.io/wjc-van-es/catalog-service:latest`
     - See [https://stackoverflow.com/questions/74043878/spring-boot-maven-plugin-cannot-override-arguments-set-in-pom-xml](https://stackoverflow.com/questions/74043878/spring-boot-maven-plugin-cannot-override-arguments-set-in-pom-xml)
-    - 
+
+##### Trouble-shooting
+The last step of the `package` job fails with `denied: permission_denied: write_package` This appears to be caused by
+not adding write permissions on the `catalog-service` package in my GitHub account, see:
+[https://stackoverflow.com/questions/69014742/github-denied-permission-denied-write-package](https://stackoverflow.com/questions/69014742/github-denied-permission-denied-write-package)
+
+In the image below we see how you can specify for a specific package (docker image) belonging to your GitHub account,
+which repositories should have write access for their GitHub Actions.
+![Specifying which repository has write access on this package for its GitHub Actions.](images/ManageActionAccessOnPackage.png "Manage Access on package by a repository Action")
 
