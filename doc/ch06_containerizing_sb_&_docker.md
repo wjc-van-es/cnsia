@@ -242,3 +242,42 @@ Just set up [../catalog-service/docker-compose.yml](../catalog-service/docker-co
   [../catalog-service/docker-compose.yml](../catalog-service/docker-compose.yml) set up without any responsiveness
   penalty when the **IntelliJ** **_catalog-service Container Debug_** session isn't running.
 - When you're done stop the containers with `docker compose down`
+
+## 6.4 Deployment pipeline: Package and publish
+
+### 6.4.2 Publishing container images with GitHub Actions
+#### Setting up the GitHub Actions instructions back in chapter 3 and adjustments made on the book's example
+We took most of the example of the GitHub Actions instructions in commit-stage.yml.
+In chapter 3 we had to reinvent these instructions for Maven instead of Gradle for which we chose the Java with Maven 
+workflow from the 
+[https://github.com/wjc-van-es/cnsia/actions/new?category=continuous-integration](https://github.com/wjc-van-es/cnsia/actions/new?category=continuous-integration)
+examples page. This created a .github/workflows/maven.yml file. Now we have renamed this to 
+[../.github/workflows/commit-stage.yml](../.github/workflows/commit-stage.yml) to better reflect the CI/ CD stages
+defined by the 15-Factor methodology.
+
+Among the adjustments we had to make
+The root directory of the git repository contains the `.github/workflows/commit-stage.yml`, but not 
+- the root of the source code `src/`, that's in `catalog-service/src/`
+- the `pom.xml`, that's at `catalog/pom.xml`.
+
+This means that 
+- in step 3 and step 6 `"${{ github.workspace }}"` needs to be replaced with
+  `"${{ github.workspace }}/catalog-service"`
+- in `Step 5 - Build with Maven` a `cd catalog-service` is added at the `run` instruction
+
+#### Adding the `package` job to [`../.github/workflows/commit-stage.yml`](../.github/workflows/commit-stage.yml)
+Now we took over the new `package` job with some notable adjustments
+- we added step numbers to the step names
+- We use `runs-on: ubuntu-latest` instead of `runs-on: ubuntu-22.04`
+- **_Step 3 - Build container image with maven_** uses Maven instead of Gradle
+  - One complication is that the `image.name` property configured in the plugin 
+    `org.springframework.boot:spring-boot-maven-plugin` of the pom file cannot be overridden on the command line
+    - hence, `mvn spring-boot:build-image -DimageName=ghcr.io/wjc-van-es/catalog-service:latest` doesn't work, when
+      tested in a localhost terminal
+    - The work-around is to declare a project scoped property `module.image.name` and refer to that inside the
+      `org.springframework.boot:spring-boot-maven-plugin` plugin configuration (using `${module.image.name}`).
+    - Now overriding `module.image.name` on the command line can be done with Maven:
+      `mvn spring-boot:build-image -Dmodule.image.name=ghcr.io/wjc-van-es/catalog-service:latest`
+    - See [https://stackoverflow.com/questions/74043878/spring-boot-maven-plugin-cannot-override-arguments-set-in-pom-xml](https://stackoverflow.com/questions/74043878/spring-boot-maven-plugin-cannot-override-arguments-set-in-pom-xml)
+    - 
+

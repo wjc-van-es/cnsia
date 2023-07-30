@@ -22,7 +22,7 @@
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.3</spring-cloud.version>
 		<testcontainers.version>1.18.3</testcontainers.version>
-		<module.image.name>ghcr.io/wjc-van-es/${project.name}</module.image.name>
+		<module.image.name>ghcr.io/wjc-van-es/${project.name}:${project.version}</module.image.name>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -120,8 +120,9 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<!--<imageName>${module.image.name}</imageName>-->
+					<!--https://stackoverflow.com/questions/74043878/spring-boot-maven-plugin-cannot-override-arguments-set-in-pom-xml-->
 					<image>
-						<name>${module.image.name}:${project.version}</name>
+						<name>${module.image.name}</name>
 						<env>
 							<BP_JVM_VERSION>17.*</BP_JVM_VERSION>
 						</env>
