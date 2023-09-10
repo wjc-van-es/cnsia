@@ -36,7 +36,7 @@ h1,h2,h3,h4,h5 {
 </style>
 
 
-# Kubernetes setup
+# Kubernetes setup with kind
 
 ## Installing tools to run a Kubernetes test cluster locally on Ubuntu laptop
 * [https://kubernetes.io/docs/tasks/tools/](https://kubernetes.io/docs/tasks/tools/)

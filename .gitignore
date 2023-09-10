@@ -103,3 +103,9 @@ out/
 
 # inspection of extracted jar files
 jar_extracts/
+
+### GIMP ###
+*.xcf
+
+### Minikube ###
+minikube-linux-amd64

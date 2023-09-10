@@ -117,9 +117,9 @@ ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 ```
 
 #### Commands to run a `polar-postgres` and a `catalog-service` container
-Provided there are already the 
-- bla volume and
-- bla network
+Provided we already have created:
+- `polar-postgres` volume and
+- `catalog-network` network
 
 ```bash
 ~/git/cnsia/catalog-service$ docker build -t catalog-service .
