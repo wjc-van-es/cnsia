@@ -83,7 +83,7 @@ system and will yield repeatable and consistent results.
 At [https://www.composerize.com/](https://www.composerize.com/) we can convert a docker run command in a 
 `docker-compose.yml` file as a starting point to use docker compose.
 
-We can find the result in [../Chapter02/02-oo/catalog-service-02/docker-compose.yml](../Chapter02/02-oo/catalog-service-02/docker-compose.yml).
+We can find the result in [../catalog-service/docker-compose.yml](../catalog-service/docker-compose.yml).
 
 ## Adding a chapter suffix to our application name will change the name of our image
 As we add n-oo directories for our own development building experiments, and we could get a clash between
