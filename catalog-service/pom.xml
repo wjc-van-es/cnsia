@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.2</version>
+		<version>3.1.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.polarbookshop</groupId>
@@ -20,18 +20,14 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
-		<spring-cloud.version>2022.0.3</spring-cloud.version>
-		<testcontainers.version>1.18.3</testcontainers.version>
+		<spring-cloud.version>2022.0.4</spring-cloud.version>
+		<testcontainers.version>1.19.1</testcontainers.version>
 		<module.image.name>ghcr.io/wjc-van-es/${project.name}:${project.version}</module.image.name>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-
-			<!-- version added to advance beyond spring-boot-starter-parent to fix a vulnerability-->
-			<!-- Grype GHSA-36p3-wjmg-h94x-spring-boot-starter-web -->
-			<version>3.1.2</version>
 		</dependency>
 
 		<dependency>
@@ -79,10 +75,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
-
-			<!-- version added to advance beyond spring-boot-starter-parent to fix a vulnerability-->
-			<!-- Grype GHSA-36p3-wjmg-h94x-spring-boot-starter-webflux -->
-			<version>3.1.2</version>
 			<scope>test</scope>
 		</dependency>
 
