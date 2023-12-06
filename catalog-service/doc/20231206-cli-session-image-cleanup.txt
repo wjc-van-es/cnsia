@@ -1,0 +1,339 @@
+willem@linux-laptop:~/git/cnsia$ docker image ls
+REPOSITORY                           TAG              IMAGE ID       CREATED         SIZE
+postgres                             15.4             69e765e8cdbe   3 months ago    412MB
+catalog-service                      df-0.0.1         e0fb1ebaa1b7   4 months ago    495MB
+my-java-image                        1.0.0            1016789db6dd   4 months ago    598MB
+ghcr.io/wjc-van-es/my-java-image     1.0.0            1016789db6dd   4 months ago    598MB
+gcr.io/k8s-minikube/kicbase          v0.0.40          c6cc01e60919   4 months ago    1.19GB
+eclipse-temurin                      17               3a958eff0206   5 months ago    456MB
+postgres                             15.3             f0ff6ef79497   5 months ago    412MB
+postgres                             latest           f0ff6ef79497   5 months ago    412MB
+paketobuildpacks/run                 base-cnb         f2e5000af0cb   5 months ago    87.1MB
+testcontainers/ryuk                  0.5.1            ec913eeff75a   6 months ago    12.7MB
+confluentinc/ksqldb-examples         7.2.1            ae252c2780c4   16 months ago   815MB
+confluentinc/cp-ksqldb-server        7.2.1            140d2ac32177   16 months ago   1.36GB
+confluentinc/cp-ksqldb-cli           7.2.1            287039530a46   16 months ago   857MB
+confluentinc/cp-schema-registry      7.2.1            afaac043dcc1   16 months ago   1.86GB
+confluentinc/cp-kafka                7.2.1            d893473a6510   16 months ago   782MB
+confluentinc/cp-kafka                latest           d893473a6510   16 months ago   782MB
+confluentinc/cp-zookeeper            7.2.1            3f28db6a433d   16 months ago   782MB
+confluentinc/cp-zookeeper            latest           3f28db6a433d   16 months ago   782MB
+confluentinc/cp-kafka-rest           7.2.1            784b8061ad0c   16 months ago   1.76GB
+cnfldemos/kafka-connect-datagen      0.5.3-7.1.0      de0e2396b904   20 months ago   1.46GB
+zookeeper                            3.6.2            a72350516291   2 years ago     268MB
+bsucaciu/kafka                       2.6.0            cbe9ab39d5fc   3 years ago     642MB
+bsucaciu/kerberos-producer           1.0.0            eb27c056cc20   3 years ago     354MB
+bsucaciu/kerberos-consumer           1.0.0            5486c13e058b   3 years ago     354MB
+bsucaciu/kerberos                    krb5             ce76df4cb4a8   3 years ago     61MB
+config-service                       0.0.1-SNAPSHOT   0726fd86ac0e   43 years ago    297MB
+ghcr.io/wjc-van-es/catalog-service   <none>           c04f1dac659e   43 years ago    296MB
+ghcr.io/wjc-van-es/catalog-service   latest           2320f21d4a64   43 years ago    296MB
+ghcr.io/wjc-van-es/catalog-service   0.0.1-SNAPSHOT   ba606aac585a   43 years ago    296MB
+ghcr.io/wjc-van-es/catalog-service   0.0.2-SNAPSHOT   37077a06a4b2   43 years ago    303MB
+paketobuildpacks/builder             base             050ed48532b2   43 years ago    1.31GB
+willem@linux-laptop:~/git/cnsia$ docker image ls
+REPOSITORY                            TAG              IMAGE ID       CREATED         SIZE
+paketobuildpacks/run-jammy-base       latest           1beddb00d6d0   8 hours ago     104MB
+postgres                              15.4             69e765e8cdbe   3 months ago    412MB
+catalog-service                       df-0.0.1         e0fb1ebaa1b7   4 months ago    495MB
+my-java-image                         1.0.0            1016789db6dd   4 months ago    598MB
+ghcr.io/wjc-van-es/my-java-image      1.0.0            1016789db6dd   4 months ago    598MB
+gcr.io/k8s-minikube/kicbase           v0.0.40          c6cc01e60919   4 months ago    1.19GB
+eclipse-temurin                       17               3a958eff0206   5 months ago    456MB
+postgres                              15.3             f0ff6ef79497   5 months ago    412MB
+postgres                              latest           f0ff6ef79497   5 months ago    412MB
+paketobuildpacks/run                  base-cnb         f2e5000af0cb   5 months ago    87.1MB
+testcontainers/ryuk                   0.5.1            ec913eeff75a   6 months ago    12.7MB
+confluentinc/ksqldb-examples          7.2.1            ae252c2780c4   16 months ago   815MB
+confluentinc/cp-ksqldb-server         7.2.1            140d2ac32177   16 months ago   1.36GB
+confluentinc/cp-ksqldb-cli            7.2.1            287039530a46   16 months ago   857MB
+confluentinc/cp-schema-registry       7.2.1            afaac043dcc1   16 months ago   1.86GB
+confluentinc/cp-kafka                 7.2.1            d893473a6510   16 months ago   782MB
+confluentinc/cp-kafka                 latest           d893473a6510   16 months ago   782MB
+confluentinc/cp-zookeeper             7.2.1            3f28db6a433d   16 months ago   782MB
+confluentinc/cp-zookeeper             latest           3f28db6a433d   16 months ago   782MB
+confluentinc/cp-kafka-rest            7.2.1            784b8061ad0c   16 months ago   1.76GB
+cnfldemos/kafka-connect-datagen       0.5.3-7.1.0      de0e2396b904   20 months ago   1.46GB
+zookeeper                             3.6.2            a72350516291   2 years ago     268MB
+bsucaciu/kafka                        2.6.0            cbe9ab39d5fc   3 years ago     642MB
+bsucaciu/kerberos-producer            1.0.0            eb27c056cc20   3 years ago     354MB
+bsucaciu/kerberos-consumer            1.0.0            5486c13e058b   3 years ago     354MB
+bsucaciu/kerberos                     krb5             ce76df4cb4a8   3 years ago     61MB
+ghcr.io/wjc-van-es/catalog-service    0.0.1-SNAPSHOT   ba606aac585a   43 years ago    296MB
+ghcr.io/wjc-van-es/catalog-service    0.0.3-SNAPSHOT   5ba2428071a0   43 years ago    320MB
+ghcr.io/wjc-van-es/catalog-service    0.0.2-SNAPSHOT   37077a06a4b2   43 years ago    303MB
+paketobuildpacks/builder              base             050ed48532b2   43 years ago    1.31GB
+config-service                        0.0.1-SNAPSHOT   0726fd86ac0e   43 years ago    297MB
+ghcr.io/wjc-van-es/catalog-service    latest           2320f21d4a64   43 years ago    296MB
+ghcr.io/wjc-van-es/catalog-service    <none>           c04f1dac659e   43 years ago    296MB
+paketobuildpacks/builder-jammy-base   latest           3fb7d5352751   43 years ago    1.56GB
+willem@linux-laptop:~/git/cnsia$ docker image rm catalog-service:latest
+Error response from daemon: No such image: catalog-service:latest
+willem@linux-laptop:~/git/cnsia$ docker image rm ghcr.io/wjc-van-es/catalog-service:0.0.1-SNAPSHOT
+Untagged: ghcr.io/wjc-van-es/catalog-service:0.0.1-SNAPSHOT
+Untagged: ghcr.io/wjc-van-es/catalog-service@sha256:0927d23219b06d32cc8fd2841dcd80641fff50bbaec89d52768fcb247fd7558b
+Deleted: sha256:ba606aac585a083c71240e5592b047f5baefe326706ec51832eb7b71a5c08b83
+Deleted: sha256:b53ff065d7874887a530b5b81b991f0e9eb021da302bec9614b3172cf8736351
+Deleted: sha256:e52541ab3391f02d3596c6d67d849c94ad29c92f14a71fc292f8b1ad99dce35b
+Deleted: sha256:944f2718f72a0be77fdf644a7fb053955ff4404c53d7fc52526488e5dad25a2f
+Deleted: sha256:480671d3e37312416d7b12e1e71f5e64fdaf240a7e2f398a92d42221b0d19023
+Deleted: sha256:bca53d92c28d64d476aa20a5438227a391d22d2a4398396b798e77e70c8149d6
+willem@linux-laptop:~/git/cnsia$ docker image rm ghcr.io/wjc-van-es/catalog-service:0.0.2-SNAPSHOT
+Untagged: ghcr.io/wjc-van-es/catalog-service:0.0.2-SNAPSHOT
+Deleted: sha256:37077a06a4b2c4162f94fb472573c95dd87acd9a4220787b26eb4d14a0e914cc
+Deleted: sha256:1b7f1e0c07b67c22567ca3e6b81de486c1d15ec9b67530548b50278e7d46d456
+Deleted: sha256:5d8d117bfb28d7384c6ca9c6a0aa53b64eb88d06b6790f917f96923b517288c1
+Deleted: sha256:ea05448d418963ce443698aba8c3b1e1cc23b3fc893d66981f7eb83842e1bb93
+Deleted: sha256:b8d7b1dfb6fcb90569c40e39c5cdf4d2cac18764e3e244d16d767ad52b702b42
+Deleted: sha256:a854dd3d17b830910a35576bac158ead8424328cef6260e4630d5d10f823191a
+Deleted: sha256:6903ccd67e276282c51f0a3403e6b5fa6140d1494cd2f1ac1b2043128c7d8964
+Deleted: sha256:281b7c8d317bebbb0e871269d0f5de05b7643afb3e523454e36621056b42051e
+Deleted: sha256:b9b561fa0ef1af10fd36d0b5f10d9e642fbb573fa4e0219f32b1462def1dd425
+Deleted: sha256:1a174bf362b2b9f860e4bfbc3df3ce39a5e55dc911d83fea6f6ba90b2a62ee67
+willem@linux-laptop:~/git/cnsia$ docker image ls
+REPOSITORY                            TAG              IMAGE ID       CREATED         SIZE
+paketobuildpacks/run-jammy-base       latest           1beddb00d6d0   8 hours ago     104MB
+postgres                              15.4             69e765e8cdbe   3 months ago    412MB
+catalog-service                       df-0.0.1         e0fb1ebaa1b7   4 months ago    495MB
+ghcr.io/wjc-van-es/my-java-image      1.0.0            1016789db6dd   4 months ago    598MB
+my-java-image                         1.0.0            1016789db6dd   4 months ago    598MB
+gcr.io/k8s-minikube/kicbase           v0.0.40          c6cc01e60919   4 months ago    1.19GB
+eclipse-temurin                       17               3a958eff0206   5 months ago    456MB
+postgres                              15.3             f0ff6ef79497   5 months ago    412MB
+postgres                              latest           f0ff6ef79497   5 months ago    412MB
+paketobuildpacks/run                  base-cnb         f2e5000af0cb   5 months ago    87.1MB
+testcontainers/ryuk                   0.5.1            ec913eeff75a   6 months ago    12.7MB
+confluentinc/ksqldb-examples          7.2.1            ae252c2780c4   16 months ago   815MB
+confluentinc/cp-ksqldb-server         7.2.1            140d2ac32177   16 months ago   1.36GB
+confluentinc/cp-ksqldb-cli            7.2.1            287039530a46   16 months ago   857MB
+confluentinc/cp-schema-registry       7.2.1            afaac043dcc1   16 months ago   1.86GB
+confluentinc/cp-kafka                 7.2.1            d893473a6510   16 months ago   782MB
+confluentinc/cp-kafka                 latest           d893473a6510   16 months ago   782MB
+confluentinc/cp-zookeeper             7.2.1            3f28db6a433d   16 months ago   782MB
+confluentinc/cp-zookeeper             latest           3f28db6a433d   16 months ago   782MB
+confluentinc/cp-kafka-rest            7.2.1            784b8061ad0c   16 months ago   1.76GB
+cnfldemos/kafka-connect-datagen       0.5.3-7.1.0      de0e2396b904   20 months ago   1.46GB
+zookeeper                             3.6.2            a72350516291   2 years ago     268MB
+bsucaciu/kafka                        2.6.0            cbe9ab39d5fc   3 years ago     642MB
+bsucaciu/kerberos-producer            1.0.0            eb27c056cc20   3 years ago     354MB
+bsucaciu/kerberos-consumer            1.0.0            5486c13e058b   3 years ago     354MB
+bsucaciu/kerberos                     krb5             ce76df4cb4a8   3 years ago     61MB
+paketobuildpacks/builder              base             050ed48532b2   43 years ago    1.31GB
+ghcr.io/wjc-van-es/catalog-service    <none>           c04f1dac659e   43 years ago    296MB
+ghcr.io/wjc-van-es/catalog-service    latest           2320f21d4a64   43 years ago    296MB
+config-service                        0.0.1-SNAPSHOT   0726fd86ac0e   43 years ago    297MB
+paketobuildpacks/builder-jammy-base   latest           3fb7d5352751   43 years ago    1.56GB
+ghcr.io/wjc-van-es/catalog-service    0.0.3-SNAPSHOT   5ba2428071a0   43 years ago    320MB
+willem@linux-laptop:~/git/cnsia$ docker image rm ghcr.io/wjc-van-es/catalog-service
+Untagged: ghcr.io/wjc-van-es/catalog-service:latest
+Deleted: sha256:2320f21d4a64cd9601384ff9d13af2a514366350a3c34f6311540158dc2c5fb4
+Deleted: sha256:49710f4952176bdc283040b5201b9f2a8d392a076d5711736cce680c09cbba7b
+Deleted: sha256:e3eea3de87d6677073dae25b4184c414965b560de8df5709b8533b58accb55e3
+Deleted: sha256:a8878d23f76df4ad44aa74d45ff6ab1da610d927ba54e37e2f55d1317258c65e
+Deleted: sha256:08b0459bdbed65b19e55da841001a98fe16c15d005a3394bc612fef6de91860e
+Deleted: sha256:e4d08d5144bdc1b1c6f89d6900f224a49d00f761219e399aca840228f7130ff3
+willem@linux-laptop:~/git/cnsia$ docker image rm ghcr.io/wjc-van-es/catalog-service:latest
+Error response from daemon: No such image: ghcr.io/wjc-van-es/catalog-service:latest
+willem@linux-laptop:~/git/cnsia$ docker image ls
+REPOSITORY                            TAG              IMAGE ID       CREATED         SIZE
+paketobuildpacks/run-jammy-base       latest           1beddb00d6d0   9 hours ago     104MB
+postgres                              15.4             69e765e8cdbe   3 months ago    412MB
+catalog-service                       df-0.0.1         e0fb1ebaa1b7   4 months ago    495MB
+my-java-image                         1.0.0            1016789db6dd   4 months ago    598MB
+ghcr.io/wjc-van-es/my-java-image      1.0.0            1016789db6dd   4 months ago    598MB
+gcr.io/k8s-minikube/kicbase           v0.0.40          c6cc01e60919   4 months ago    1.19GB
+eclipse-temurin                       17               3a958eff0206   5 months ago    456MB
+postgres                              15.3             f0ff6ef79497   5 months ago    412MB
+postgres                              latest           f0ff6ef79497   5 months ago    412MB
+paketobuildpacks/run                  base-cnb         f2e5000af0cb   5 months ago    87.1MB
+testcontainers/ryuk                   0.5.1            ec913eeff75a   6 months ago    12.7MB
+confluentinc/ksqldb-examples          7.2.1            ae252c2780c4   16 months ago   815MB
+confluentinc/cp-ksqldb-server         7.2.1            140d2ac32177   16 months ago   1.36GB
+confluentinc/cp-ksqldb-cli            7.2.1            287039530a46   16 months ago   857MB
+confluentinc/cp-schema-registry       7.2.1            afaac043dcc1   16 months ago   1.86GB
+confluentinc/cp-kafka                 7.2.1            d893473a6510   16 months ago   782MB
+confluentinc/cp-kafka                 latest           d893473a6510   16 months ago   782MB
+confluentinc/cp-zookeeper             7.2.1            3f28db6a433d   16 months ago   782MB
+confluentinc/cp-zookeeper             latest           3f28db6a433d   16 months ago   782MB
+confluentinc/cp-kafka-rest            7.2.1            784b8061ad0c   16 months ago   1.76GB
+cnfldemos/kafka-connect-datagen       0.5.3-7.1.0      de0e2396b904   20 months ago   1.46GB
+zookeeper                             3.6.2            a72350516291   2 years ago     268MB
+bsucaciu/kafka                        2.6.0            cbe9ab39d5fc   3 years ago     642MB
+bsucaciu/kerberos-producer            1.0.0            eb27c056cc20   3 years ago     354MB
+bsucaciu/kerberos-consumer            1.0.0            5486c13e058b   3 years ago     354MB
+bsucaciu/kerberos                     krb5             ce76df4cb4a8   3 years ago     61MB
+ghcr.io/wjc-van-es/catalog-service    <none>           c04f1dac659e   43 years ago    296MB
+config-service                        0.0.1-SNAPSHOT   0726fd86ac0e   43 years ago    297MB
+paketobuildpacks/builder-jammy-base   latest           3fb7d5352751   43 years ago    1.56GB
+paketobuildpacks/builder              base             050ed48532b2   43 years ago    1.31GB
+ghcr.io/wjc-van-es/catalog-service    0.0.3-SNAPSHOT   5ba2428071a0   43 years ago    320MB
+willem@linux-laptop:~/git/cnsia$ docker image rm postgres:15.3.0
+Error response from daemon: No such image: postgres:15.3.0
+willem@linux-laptop:~/git/cnsia$ docker image rm postgres:15.3
+Untagged: postgres:15.3
+willem@linux-laptop:~/git/cnsia$ docker image rm postgres:latest
+Untagged: postgres:latest
+Untagged: postgres@sha256:362a63cb1e864195ea2bc29b5066bdb222bc9a4461bfaff2418f63a06e56bce0
+Deleted: sha256:f0ff6ef79497378368c85a75e5da657d30fd7003104ca2a85881e73bc0f587e8
+Deleted: sha256:eb720a41e2e2ad6dfff804fb931dd8b89b80853b838af1fb9018be9c1374342b
+Deleted: sha256:10d6759b44db9f9f7930e40be97c097aff4a97155614da98360d0937d139447e
+Deleted: sha256:33ac736016598c21209cbdd4d0a59bc6fb6e4943f6482f4fb8be60fcc49d2a75
+Deleted: sha256:8bc6b30deea1b0a861e154addc1266a2c8db5ba7edb409d71ddfa3012e87a7e6
+Deleted: sha256:d9e35569462fa2f8d134fd18120d9a9ac5161c3e49e8de73737f4869db333d11
+Deleted: sha256:ef13627b81a93d62129b174451537bdfeff71260ad28fa1ea9a7bbb35ea0dbdf
+Deleted: sha256:b8a426a9b350cc9dc688d9bfdf3bf142d4aa53a1ecda1ff12454d7582f1df2b4
+Deleted: sha256:a4c503e3686ddd87a8b82dbde43e654ad7ae5fd522baff16f570036cc7b64e1e
+Deleted: sha256:3344e00d6cbed7fb0f387672d0ef8a70c8d2f010cc224d6964477faaa6e92a7e
+Deleted: sha256:a499461f1ccf060128b377e9d2d0d8a91947ab0898ac0d89493cb414b6c6607c
+Deleted: sha256:dbeb27368b87e2ad17930a28913947c3579195f1b67e480b6b36e22a37f2d003
+Deleted: sha256:abd3b78e2b18f1490a9f898014ec7dacd68306212dfc6224edb90d1fc371657b
+Deleted: sha256:24839d45ca455f36659219281e0f2304520b92347eb536ad5cc7b4dbb8163588
+willem@linux-laptop:~/git/cnsia$ docker image ls
+REPOSITORY                            TAG              IMAGE ID       CREATED         SIZE
+paketobuildpacks/run-jammy-base       latest           1beddb00d6d0   9 hours ago     104MB
+postgres                              15.4             69e765e8cdbe   3 months ago    412MB
+catalog-service                       df-0.0.1         e0fb1ebaa1b7   4 months ago    495MB
+ghcr.io/wjc-van-es/my-java-image      1.0.0            1016789db6dd   4 months ago    598MB
+my-java-image                         1.0.0            1016789db6dd   4 months ago    598MB
+gcr.io/k8s-minikube/kicbase           v0.0.40          c6cc01e60919   4 months ago    1.19GB
+eclipse-temurin                       17               3a958eff0206   5 months ago    456MB
+paketobuildpacks/run                  base-cnb         f2e5000af0cb   5 months ago    87.1MB
+testcontainers/ryuk                   0.5.1            ec913eeff75a   6 months ago    12.7MB
+confluentinc/ksqldb-examples          7.2.1            ae252c2780c4   16 months ago   815MB
+confluentinc/cp-ksqldb-server         7.2.1            140d2ac32177   16 months ago   1.36GB
+confluentinc/cp-ksqldb-cli            7.2.1            287039530a46   16 months ago   857MB
+confluentinc/cp-schema-registry       7.2.1            afaac043dcc1   16 months ago   1.86GB
+confluentinc/cp-kafka                 7.2.1            d893473a6510   16 months ago   782MB
+confluentinc/cp-kafka                 latest           d893473a6510   16 months ago   782MB
+confluentinc/cp-zookeeper             7.2.1            3f28db6a433d   16 months ago   782MB
+confluentinc/cp-zookeeper             latest           3f28db6a433d   16 months ago   782MB
+confluentinc/cp-kafka-rest            7.2.1            784b8061ad0c   16 months ago   1.76GB
+cnfldemos/kafka-connect-datagen       0.5.3-7.1.0      de0e2396b904   20 months ago   1.46GB
+zookeeper                             3.6.2            a72350516291   2 years ago     268MB
+bsucaciu/kafka                        2.6.0            cbe9ab39d5fc   3 years ago     642MB
+bsucaciu/kerberos-producer            1.0.0            eb27c056cc20   3 years ago     354MB
+bsucaciu/kerberos-consumer            1.0.0            5486c13e058b   3 years ago     354MB
+bsucaciu/kerberos                     krb5             ce76df4cb4a8   3 years ago     61MB
+config-service                        0.0.1-SNAPSHOT   0726fd86ac0e   43 years ago    297MB
+ghcr.io/wjc-van-es/catalog-service    <none>           c04f1dac659e   43 years ago    296MB
+ghcr.io/wjc-van-es/catalog-service    0.0.3-SNAPSHOT   5ba2428071a0   43 years ago    320MB
+paketobuildpacks/builder-jammy-base   latest           3fb7d5352751   43 years ago    1.56GB
+paketobuildpacks/builder              base             050ed48532b2   43 years ago    1.31GB
+willem@linux-laptop:~/git/cnsia$ docker image rm ghcr.io/wjc-van-es/catalog-service
+Error response from daemon: No such image: ghcr.io/wjc-van-es/catalog-service:latest
+willem@linux-laptop:~/git/cnsia$ docker image rm ghcr.io/wjc-van-es/catalog-service:<none>
+bash: syntax error near unexpected token `newline'
+willem@linux-laptop:~/git/cnsia$ docker image rm c04f1dac659e
+Untagged: ghcr.io/wjc-van-es/catalog-service@sha256:70c79c9cf3112099911f6d86fe5239d62d3b7065ebaac7b526a2eaa746e6e9f3
+Deleted: sha256:c04f1dac659e383919019468daa0d7e594b794e8f56c256ae58ab570c536c2da
+Deleted: sha256:6df3367a5657dc4d9848f93c088953b698410efc48adb3229c351b7d4a948508
+Deleted: sha256:841f464db3ed4c3426e458fb6ce07e91ce764b4dfed09b4bf7b908712aa57309
+Deleted: sha256:2821a5723d471dddc883e473370b355943461f1da3ec3a33578f7c9cd8d19d06
+Deleted: sha256:eb7623a9913e3e015d8ddc6b65a64d5d4ead989d0d25197dde79eceb65799840
+Deleted: sha256:0c9e0ed612ae6a70c341513682993b8d463eaca04c2bac5ebebc4bdda7a8adc7
+Deleted: sha256:db333670ff8782cd3b3feb38acecce1f6654d1dd2d7b79c70e0e70e65fc4659a
+Deleted: sha256:149b53d48386b474927eddbc2e520d125c899a2df6f8201fdf0c306c9ed9e147
+Deleted: sha256:71bc5877d5571e1b7b220dd398fe253edc625d4dc5452d1996368a4aaf79ccf8
+Deleted: sha256:9631431ffe0f41a8bbae0ed0b6bf2b91f8eab3fb005468130c3196db096132c7
+willem@linux-laptop:~/git/cnsia$ docker image ls
+REPOSITORY                            TAG              IMAGE ID       CREATED         SIZE
+paketobuildpacks/run-jammy-base       latest           1beddb00d6d0   9 hours ago     104MB
+postgres                              15.4             69e765e8cdbe   3 months ago    412MB
+catalog-service                       df-0.0.1         e0fb1ebaa1b7   4 months ago    495MB
+my-java-image                         1.0.0            1016789db6dd   4 months ago    598MB
+ghcr.io/wjc-van-es/my-java-image      1.0.0            1016789db6dd   4 months ago    598MB
+gcr.io/k8s-minikube/kicbase           v0.0.40          c6cc01e60919   4 months ago    1.19GB
+eclipse-temurin                       17               3a958eff0206   5 months ago    456MB
+paketobuildpacks/run                  base-cnb         f2e5000af0cb   5 months ago    87.1MB
+testcontainers/ryuk                   0.5.1            ec913eeff75a   6 months ago    12.7MB
+confluentinc/ksqldb-examples          7.2.1            ae252c2780c4   16 months ago   815MB
+confluentinc/cp-ksqldb-server         7.2.1            140d2ac32177   16 months ago   1.36GB
+confluentinc/cp-ksqldb-cli            7.2.1            287039530a46   16 months ago   857MB
+confluentinc/cp-schema-registry       7.2.1            afaac043dcc1   16 months ago   1.86GB
+confluentinc/cp-kafka                 7.2.1            d893473a6510   16 months ago   782MB
+confluentinc/cp-kafka                 latest           d893473a6510   16 months ago   782MB
+confluentinc/cp-zookeeper             7.2.1            3f28db6a433d   16 months ago   782MB
+confluentinc/cp-zookeeper             latest           3f28db6a433d   16 months ago   782MB
+confluentinc/cp-kafka-rest            7.2.1            784b8061ad0c   16 months ago   1.76GB
+cnfldemos/kafka-connect-datagen       0.5.3-7.1.0      de0e2396b904   20 months ago   1.46GB
+zookeeper                             3.6.2            a72350516291   2 years ago     268MB
+bsucaciu/kafka                        2.6.0            cbe9ab39d5fc   3 years ago     642MB
+bsucaciu/kerberos-producer            1.0.0            eb27c056cc20   3 years ago     354MB
+bsucaciu/kerberos-consumer            1.0.0            5486c13e058b   3 years ago     354MB
+bsucaciu/kerberos                     krb5             ce76df4cb4a8   3 years ago     61MB
+paketobuildpacks/builder-jammy-base   latest           3fb7d5352751   43 years ago    1.56GB
+ghcr.io/wjc-van-es/catalog-service    0.0.3-SNAPSHOT   5ba2428071a0   43 years ago    320MB
+config-service                        0.0.1-SNAPSHOT   0726fd86ac0e   43 years ago    297MB
+paketobuildpacks/builder              base             050ed48532b2   43 years ago    1.31GB
+willem@linux-laptop:~/git/cnsia$ docker image prune
+WARNING! This will remove all dangling images.
+Are you sure you want to continue? [y/N] y
+Total reclaimed space: 0B
+willem@linux-laptop:~/git/cnsia$ docker image ls
+REPOSITORY                            TAG              IMAGE ID       CREATED         SIZE
+paketobuildpacks/run-jammy-base       latest           1beddb00d6d0   9 hours ago     104MB
+postgres                              15.4             69e765e8cdbe   3 months ago    412MB
+catalog-service                       df-0.0.1         e0fb1ebaa1b7   4 months ago    495MB
+my-java-image                         1.0.0            1016789db6dd   4 months ago    598MB
+ghcr.io/wjc-van-es/my-java-image      1.0.0            1016789db6dd   4 months ago    598MB
+gcr.io/k8s-minikube/kicbase           v0.0.40          c6cc01e60919   4 months ago    1.19GB
+eclipse-temurin                       17               3a958eff0206   5 months ago    456MB
+paketobuildpacks/run                  base-cnb         f2e5000af0cb   5 months ago    87.1MB
+testcontainers/ryuk                   0.5.1            ec913eeff75a   6 months ago    12.7MB
+confluentinc/ksqldb-examples          7.2.1            ae252c2780c4   16 months ago   815MB
+confluentinc/cp-ksqldb-server         7.2.1            140d2ac32177   16 months ago   1.36GB
+confluentinc/cp-ksqldb-cli            7.2.1            287039530a46   16 months ago   857MB
+confluentinc/cp-schema-registry       7.2.1            afaac043dcc1   16 months ago   1.86GB
+confluentinc/cp-kafka                 7.2.1            d893473a6510   16 months ago   782MB
+confluentinc/cp-kafka                 latest           d893473a6510   16 months ago   782MB
+confluentinc/cp-zookeeper             7.2.1            3f28db6a433d   16 months ago   782MB
+confluentinc/cp-zookeeper             latest           3f28db6a433d   16 months ago   782MB
+confluentinc/cp-kafka-rest            7.2.1            784b8061ad0c   16 months ago   1.76GB
+cnfldemos/kafka-connect-datagen       0.5.3-7.1.0      de0e2396b904   20 months ago   1.46GB
+zookeeper                             3.6.2            a72350516291   2 years ago     268MB
+bsucaciu/kafka                        2.6.0            cbe9ab39d5fc   3 years ago     642MB
+bsucaciu/kerberos-producer            1.0.0            eb27c056cc20   3 years ago     354MB
+bsucaciu/kerberos-consumer            1.0.0            5486c13e058b   3 years ago     354MB
+bsucaciu/kerberos                     krb5             ce76df4cb4a8   3 years ago     61MB
+config-service                        0.0.1-SNAPSHOT   0726fd86ac0e   43 years ago    297MB
+ghcr.io/wjc-van-es/catalog-service    0.0.3-SNAPSHOT   5ba2428071a0   43 years ago    320MB
+paketobuildpacks/builder-jammy-base   latest           3fb7d5352751   43 years ago    1.56GB
+paketobuildpacks/builder              base             050ed48532b2   43 years ago    1.31GB
+
+## After Running
+## mvn spring-boot:build-image -e
+## again
+## This recreates postgres:15.3 somehow adding 1 entry to the list of 28 making it 29 images:
+willem@linux-laptop:~/git/cnsia$ docker image ls
+REPOSITORY                            TAG              IMAGE ID       CREATED         SIZE
+paketobuildpacks/run-jammy-base       latest           1beddb00d6d0   9 hours ago     104MB
+postgres                              15.4             69e765e8cdbe   3 months ago    412MB
+postgres                              15.3             8769343ac885   4 months ago    412MB
+catalog-service                       df-0.0.1         e0fb1ebaa1b7   4 months ago    495MB
+my-java-image                         1.0.0            1016789db6dd   4 months ago    598MB
+ghcr.io/wjc-van-es/my-java-image      1.0.0            1016789db6dd   4 months ago    598MB
+gcr.io/k8s-minikube/kicbase           v0.0.40          c6cc01e60919   4 months ago    1.19GB
+eclipse-temurin                       17               3a958eff0206   5 months ago    456MB
+paketobuildpacks/run                  base-cnb         f2e5000af0cb   5 months ago    87.1MB
+testcontainers/ryuk                   0.5.1            ec913eeff75a   6 months ago    12.7MB
+confluentinc/ksqldb-examples          7.2.1            ae252c2780c4   16 months ago   815MB
+confluentinc/cp-ksqldb-server         7.2.1            140d2ac32177   16 months ago   1.36GB
+confluentinc/cp-ksqldb-cli            7.2.1            287039530a46   16 months ago   857MB
+confluentinc/cp-schema-registry       7.2.1            afaac043dcc1   16 months ago   1.86GB
+confluentinc/cp-kafka                 7.2.1            d893473a6510   16 months ago   782MB
+confluentinc/cp-kafka                 latest           d893473a6510   16 months ago   782MB
+confluentinc/cp-zookeeper             7.2.1            3f28db6a433d   16 months ago   782MB
+confluentinc/cp-zookeeper             latest           3f28db6a433d   16 months ago   782MB
+confluentinc/cp-kafka-rest            7.2.1            784b8061ad0c   16 months ago   1.76GB
+cnfldemos/kafka-connect-datagen       0.5.3-7.1.0      de0e2396b904   20 months ago   1.46GB
+zookeeper                             3.6.2            a72350516291   2 years ago     268MB
+bsucaciu/kafka                        2.6.0            cbe9ab39d5fc   3 years ago     642MB
+bsucaciu/kerberos-producer            1.0.0            eb27c056cc20   3 years ago     354MB
+bsucaciu/kerberos-consumer            1.0.0            5486c13e058b   3 years ago     354MB
+bsucaciu/kerberos                     krb5             ce76df4cb4a8   3 years ago     61MB
+paketobuildpacks/builder-jammy-base   latest           3fb7d5352751   43 years ago    1.56GB
+config-service                        0.0.1-SNAPSHOT   0726fd86ac0e   43 years ago    297MB
+paketobuildpacks/builder              base             050ed48532b2   43 years ago    1.31GB
+ghcr.io/wjc-van-es/catalog-service    0.0.3-SNAPSHOT   5ba2428071a0   43 years ago    320MB
+willem@linux-laptop:~/git/cnsia$
+

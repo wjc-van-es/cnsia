@@ -25,7 +25,8 @@ public class BookDataLoader {
 		bookRepository.deleteAll();
 		var book1 = Book.of("1234567893", "Following the Polestar", "Hank P***star", 9.99, "Polarsophia");
 		var book2 = Book.of("1234567894", "Pole night, out of sight", "Scott Alpine", 12.99, "Polarsophia");
-		bookRepository.saveAll(List.of(book1, book2));
+		var book3 = Book.of("1234567895", "Obsessing over Artic thaw", "Hermione Frozen", 12.99, "Cornucopia");
+		bookRepository.saveAll(List.of(book1, book2, book3));
 	}
 
 }

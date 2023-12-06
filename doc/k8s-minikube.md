@@ -162,7 +162,7 @@ willem@linux-laptop:~/git/cnsia$
 ## restarting a minikube cluster whose profile is already defined
 
 Now if you restart the profile no configuration arguments are necessary just the name with either `--profile polar` or
-`-p profile`
+`-p polar`
 ```bash
 $ minikube start -p polar
 ```
