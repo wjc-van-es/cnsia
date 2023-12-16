@@ -165,8 +165,9 @@ The highest level for `catalog-service` is high on:
 NAME                       INSTALLED                     FIXED-IN            TYPE          VULNERABILITY        SEVERITY
 snakeyaml                  1.33                          2.0                 java-archive  GHSA-mjmj-j48q-9wg2  High
 ```
-This is due because of Spring Boot 3.1.1 still supporting this library version. We will upgrade to the new version
-of Spring Boot as soon as it is released.
+This is due because of Spring Boot 3.1.1 (and 3.1.6) are still supporting this library version. We will upgrade to the
+new version of Spring Boot as soon as it is released. 3.2.0 is already available (on 06-12-2023), but incompatible with
+the latest Spring Cloud.
 
 The highest level for `postgres:15.3` is high on:
 ```bash
@@ -280,7 +281,7 @@ Now we took over the new `package` job with some notable adjustments
       `mvn spring-boot:build-image -Dmodule.image.name=ghcr.io/wjc-van-es/catalog-service:latest`
     - See [https://stackoverflow.com/questions/74043878/spring-boot-maven-plugin-cannot-override-arguments-set-in-pom-xml](https://stackoverflow.com/questions/74043878/spring-boot-maven-plugin-cannot-override-arguments-set-in-pom-xml)
 
-##### Trouble-shooting
+##### Troubleshooting
 The last step of the `package` job fails with `denied: permission_denied: write_package` This appears to be caused by
 not adding write permissions on the `catalog-service` package in my GitHub account, see:
 [https://stackoverflow.com/questions/69014742/github-denied-permission-denied-write-package](https://stackoverflow.com/questions/69014742/github-denied-permission-denied-write-package)

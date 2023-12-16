@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-Kind: Deployment
+kind: Deployment
 metadata:
   name: catalog-service
   labels:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: catalog-service
-          image: catalog-service
+          image: ghcr.io/wjc-van-es/catalog-service:0.0.3-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9001

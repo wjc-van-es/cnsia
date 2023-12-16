@@ -166,3 +166,72 @@ Now if you restart the profile no configuration arguments are necessary just the
 ```bash
 $ minikube start -p polar
 ```
+
+## Managing images within a minikube cluster
+See [https://minikube.sigs.k8s.io/docs/commands/image/](https://minikube.sigs.k8s.io/docs/commands/image/)
+
+### List available images with `minikube image ls`
+- Don't forget to specify our profile with `-p polar`
+
+### Add a locally built image to a minikube cluster with `minikube image load <image-name>`
+- Again, don't forget to specify our profile with `-p polar`.
+- <image-name> should be the full image name you have found with `docker image ls`.
+#### e.g.
+```bash
+willem@linux-laptop:~/git/cnsia$ minikube -p polar image ls
+registry.k8s.io/pause:3.9
+registry.k8s.io/kube-scheduler:v1.27.4
+registry.k8s.io/kube-proxy:v1.27.4
+registry.k8s.io/kube-controller-manager:v1.27.4
+registry.k8s.io/kube-apiserver:v1.27.4
+registry.k8s.io/etcd:3.5.7-0
+registry.k8s.io/coredns/coredns:v1.10.1
+gcr.io/k8s-minikube/storage-provisioner:v5
+docker.io/library/postgres:15.4
+docker.io/kubernetesui/metrics-scraper:<none>
+docker.io/kubernetesui/dashboard:<none>
+willem@linux-laptop:~/git/cnsia$ minikube -p polar image load ghcr.io/wjc-van-es/catalog-service:0.0.3-SNAPSHOT
+willem@linux-laptop:~/git/cnsia$ minikube -p polar image ls
+registry.k8s.io/pause:3.9
+registry.k8s.io/kube-scheduler:v1.27.4
+registry.k8s.io/kube-proxy:v1.27.4
+registry.k8s.io/kube-controller-manager:v1.27.4
+registry.k8s.io/kube-apiserver:v1.27.4
+registry.k8s.io/etcd:3.5.7-0
+registry.k8s.io/coredns/coredns:v1.10.1
+ghcr.io/wjc-van-es/catalog-service:0.0.3-SNAPSHOT
+gcr.io/k8s-minikube/storage-provisioner:v5
+docker.io/library/postgres:15.4
+docker.io/kubernetesui/metrics-scraper:<none>
+docker.io/kubernetesui/dashboard:<none>
+willem@linux-laptop:~/git/cnsia$ 
+
+```
+
+### Add a remote Docker Hub image to a minikube cluster with `minikube image pull <image-name>`
+- Again, don't forget to specify our profile with `-p polar`.
+
+#### e.g. a new postgres image
+- See [https://hub.docker.com/_/postgres](https://hub.docker.com/_/postgres)
+
+```bash
+willem@linux-laptop:~/git/polar-deployment/kubernetes/platform/development$ minikube -p polar image pull postgres:16.1
+willem@linux-laptop:~/git/polar-deployment/kubernetes/platform/development$ minikube -p polar image ls
+registry.k8s.io/pause:3.9
+registry.k8s.io/kube-scheduler:v1.27.4
+registry.k8s.io/kube-proxy:v1.27.4
+registry.k8s.io/kube-controller-manager:v1.27.4
+registry.k8s.io/kube-apiserver:v1.27.4
+registry.k8s.io/etcd:3.5.7-0
+registry.k8s.io/coredns/coredns:v1.10.1
+ghcr.io/wjc-van-es/catalog-service:0.0.3-SNAPSHOT
+gcr.io/k8s-minikube/storage-provisioner:v5
+docker.io/library/postgres:16.1
+docker.io/library/postgres:15.4
+docker.io/kubernetesui/metrics-scraper:<none>
+docker.io/kubernetesui/dashboard:<none>
+
+```
+Don't forget to change the image version in the polar-deployment project
+[../../polar-deployment/kubernetes/platform/development/services/postgresql.yml](../../polar-deployment/kubernetes/platform/development/services/postgresql.yml)
+
