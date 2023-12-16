@@ -175,7 +175,7 @@ See [https://minikube.sigs.k8s.io/docs/commands/image/](https://minikube.sigs.k8
 
 ### Add a locally built image to a minikube cluster with `minikube image load <image-name>`
 - Again, don't forget to specify our profile with `-p polar`.
-- <image-name> should be the full image name you have found with `docker image ls`.
+- `<image-name>` should be the full image name you have found with `docker image ls`.
 #### e.g.
 ```bash
 willem@linux-laptop:~/git/cnsia$ minikube -p polar image ls
