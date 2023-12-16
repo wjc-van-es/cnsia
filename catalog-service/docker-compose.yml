@@ -17,7 +17,7 @@ services:
       - BPL_DEBUG_PORT=8001
       - SPRING_DATASOURCE_URL=jdbc:postgresql://polar-postgres:5432/polardb_catalog
 
-    image: 'ghcr.io/wjc-van-es/catalog-service:0.0.2-SNAPSHOT'
+    image: 'ghcr.io/wjc-van-es/catalog-service:0.0.3-SNAPSHOT'
 
   postgresql:
     container_name: polar-postgres
@@ -29,7 +29,7 @@ services:
       - '5432:5432'
     volumes:
       - polar-postgres:/var/lib/postgresql/data
-    image: 'postgres:15.4'
+    image: 'postgres:15.4' # version 16.1 is pulled, but not compatible with the data files
 
 volumes:
   polar-postgres:
