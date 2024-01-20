@@ -17,7 +17,7 @@ services:
       - BPL_DEBUG_PORT=8001
       - SPRING_DATASOURCE_URL=jdbc:postgresql://polar-postgres:5432/polardb_catalog
 
-    image: 'ghcr.io/wjc-van-es/catalog-service:0.0.3-SNAPSHOT'
+    image: 'ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT'
 
   postgresql:
     container_name: polar-postgres

@@ -220,6 +220,34 @@ The port forwards allow you to use
 kubectl port-forward service/catalog-service 9001:80
 kubectl port-forward service/polar-postgres 5432:5432
 ```
+
+## 7.4 Scalability and disposability
+
+### 7.4.1 Ensuring disposability: Fast startup
+
+### 7.4.2  Ensuring disposability: Graceful shutdown
+
+- We will set a graceful shutdown with a 15s grace period for the _catalog-service_ application within
+  [../catalog-service/src/main/resources/application.yml](../catalog-service/src/main/resources/application.yml)
+- Then we will update the image tag to `0.0.4-SNAPSHOT` by changing the maven artifact version value in the
+  [../catalog-service/pom.xml](../catalog-service/pom.xml)
+- [../catalog-service/k8s/deployment.yml](../catalog-service/k8s/deployment.yml) 
+  we add a `spec/template/spec/containers[0]/lifecycle/prestop/exec/command` with value 
+  `command: [ "sh", "-c", "sleep 5" ]`, which makes Kubernetes wait for 5s before issuing the `SIGTERM` signal
+  to the pod.
+- Now redo the steps described in 
+  [7.2.3 Creating a Deployment for a Spring Boot application](#723-creating-a-deployment-for-a-spring-boot-application)
+  - with the modification that the application version will now be `0.0.4-SNAPSHOT` and the image reference in
+    [../catalog-service/k8s/deployment.yml](../catalog-service/k8s/deployment.yml)
+    now referring to the image `ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT`
+
+---
+
+### NOTE: loading the new version of the image on minikube polar profile doesn't work
+See [minikube-problem-loading-local-image.md](minikube-problem-loading-local-image.md)
+
+---
+
 ## Undeploying and stopping the minikube cluster
 1. `~/git/cnsia/catalog-service$ kubectl delete -f k8s/`
 2. `~/git/polar-deployment/kubernetes/platform/development$ kubectl delete -f services/`

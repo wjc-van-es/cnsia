@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: catalog-service
-          image: ghcr.io/wjc-van-es/catalog-service:0.0.3-SNAPSHOT
+          image: ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9001
