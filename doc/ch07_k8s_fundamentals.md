@@ -32,13 +32,44 @@ h1,h2,h3,h4,h5 {
   color: #269B7D; 
   font-family: "fira sans", "Latin Modern Sans", Calibri, "Trebuchet MS", sans-serif;
 }
+
+img {
+  width: auto; 
+  height: 80%;
+  max-height: 100%; 
+}
 </style>
 
 # Chapter 7: Kubernetes fundamentals for Spring Boot
+#### Overview of content
+- Main features of Kubernetes
+- creating and managing
+  - Pods
+  - Deployments
+  - Services
+- graceful shutdown
+- scaling
+- Automate local development workflow with Tilt
+- Visualize workloads with Octant
+- Validate Kubernetes manifests
 
 ## 7.1 Moving from Docker to Kubernetes
 This section mainly deals with what kubernetes delivers what Docker cannot: orchestrating a deployment on a cluster
-and maintaining that deployment or even scale it up on demand, even if problems occur.
+of multiple servers and maintaining that deployment or even _scale_ it up on demand, even if problems occur (_resilience_).
+
+### Docker setup on a single machine Docker host
+!["Docker daemon can only manage resources on the singe machine where it was installed, called the Docker host."](/home/willem/git/cnsia/doc/images/Docker_setup.png)
+Docker daemon can only manage resources on the singe machine where it was installed, called the Docker host.
+
+### Kubernetes setup on a cluster that consists of multiple machines
+![](/home/willem/git/cnsia/doc/images/Kubernetes_setup.png)
+- clients interact with the _Kubernetes Control Plane_ (through kubectl or a web console)
+- _Cluster_ consists of a set of nodes where containerized applications can run. Usually the K8s control plane is on a
+  separate node and the other nodes are worker nodes where the containerized apps are deployed on
+- _Control Plane_ exposes the API and interfaces to define, deploy and manage the lifecycle of Pods
+- _working nodes_ provide the necessary cpu, memory, network and storage for containers to run and communicate over a
+  network.
+- _Pod_ the smallest deployable unit containing at least one application (OCI / Docker) container.
 
 ### 7.1.1 Working with a local Kubernetes cluster
 Furthermore, in 7.1.1 installation and configuration of a local test 'cluster' with minikube is explained. 
@@ -49,6 +80,12 @@ For details see [k8s-minikube.md](k8s-minikube.md).
   ```bash
   $ minikube start -p polar
   ```
+  
+- kubectl diagnostics
+  - `kubectl get nodes`
+  - `kubectl config get-contexts`
+  - `kubectl config current-context` - if there are more contexts present, check which one is currently used
+  - `kubectl config use-context polar` - change the current context whenever necessary
 - Running the minikube dashboard for the 'polar' profile:
   ```bash
   $ minikube dashboard -p polar
@@ -74,9 +111,9 @@ We have created a separate git repo for deployments:
   polar-postgres-74fc97d96d-fbqlq   1/1     Running   0          75s
     
   ```
-- We can also look into the logs of the pod with
+- We can also look into the logs of the pod (from any dir) with
   ```bash
-  willem@linux-laptop:~/git/polar-deployment/kubernetes/platform/development$ kubectl logs deployment/polar-postgres
+  $ kubectl logs deployment/polar-postgres
   ```
 
 - And we can see the pods on the minikube dashboard under:
@@ -97,16 +134,53 @@ We have created a separate git repo for deployments:
   ```
 
 ## 7.2 Kubernetes Deployments for Spring Boot
-
+A Spring Boot application on Kubernetes is still packaged as a container, but it runs in a Pod controlled by a 
+Deployment object.
 ### 7.2.1 From containers to Pods
+A Pod is the smallest Kubernetes object that represents a set of running containers in a cluster. Usually, there will be
+a single primary container (with your application) in a pod. However, it may contain additional helper containers with
+features like:
+- perform initialization tasks,
+- logging,
+- security or
+- monitoring
 
 ### 7.2.2 Controlling Pods with Deployments
+A Deployment is an object that manages the life cycle of a stateless, replicated application, with each replica running
+within a separate pod. The replicas are distributed among the available worker nodes of the cluster for better
+resilience. Deployment objects facilitate
+- upgrade roll out without downtime,
+- roll back in case of an error,
+- pause and resume upgrades,
+- manage replication, through a _ReplicaSet_, which ensures the desired number of pods are up and running and 
+  distributed among all available worker nodes of your cluster.
+
+![](/home/willem/git/cnsia/doc/images/Deployment_replicaSet_Pods.png)
+
+_A deployment object is defined in a manifest file (usually in yaml format) in which you can declare the desired state of your
+system._ The orchestrator will figure out _how_ to achieve this.
+- _Controllers_ compare the desired state with the actual state and act whenever those two don't match. 
+- Deployments and ReplicaSets are both controller objects.
 
 ### 7.2.3 Creating a Deployment for a Spring Boot application
 
 We will create a deployment of our catalog-service application, which is defined in
 [../catalog-service/k8s/deployment.yml](../catalog-service/k8s/deployment.yml)
 
+#### The four main sections of a manifest file
+
+1. `apiVersion` - the version of the Kubernetes API used to create this object
+2. `kind` - What kind of object you want to create, e.g.
+   1. Deployment
+   2. Service
+   3. Pod
+   4. ReplicaSet
+3. `metadata` - to uniquely identify the object. It takes a set of labels (key/value pairs)
+4. `spec` - to declare the desired state for your object. This contains
+   1. `selector` part to identify, which objects to scale by a ReplicaSet
+   2. `template` part specifying the desired pods and containers
+
+#### Actual deployment workflow
 1. Make sure you create an up-to-date image of the application with `mvn spring-boot:build-image -e`
    (after updating all dependencies in the [../catalog-service/pom.xml](../catalog-service/pom.xml))
 2. Check the presence of the new image with `docker image ls` my new one is 
@@ -166,7 +240,12 @@ We will create a deployment of our catalog-service application, which is defined
 This is about how an application instance running on a pod is able to find and communicate with application instances
 of another service.
 
-The two main patterns are
+### 7.3.1 Understanding service discovery and load balancing
+When an application needs to call a backing service, it performs a _lookup_ in the registry to determine which IP 
+address to contact. If multiple instances are available, a _load-balancing_ strategy is applied to distribute the 
+workload across them.
+
+The two main service discovery patterns are
 - client-side
   - applications need to be registered with a service registry upon start up and unregistered when shutting down.
   - A native service registry like Netflix Eureka has to be configured and added to your Spring application
@@ -174,13 +253,12 @@ The two main patterns are
 - server-side
   - the service registry is managed and updated by the deployment platform (The Kubernetes Control Plane)
   - No integration code is needed within the application, which yields a better separation of concerns
-### 7.3.1 Understanding service discovery and load balancing
 
 ### 7.3.2  Client-side service discovery and load balancing
 
 ### 7.3.3 Server-side service discovery and load balancing
 The Kubernetes implementation of service discovery based on service objects
-- you can define a _Service_ as a part of the deployment definition (as a yaml file)
+- you can define a _Service_ in a (yaml format) manifest file
 - A _Service_ definition exposes a set of pods on which the application is deployed as a network service.
   - coupling is achieved by using labels, whereby both the Pods and the service share the same application label
 - A service has a long lifespan and is assigned a fixed IP address to forward any connection to the service to
@@ -190,9 +268,25 @@ The Kubernetes implementation of service discovery based on service objects
   - the proxy configuration
 - The _kube-proxy_ helps the service to forward to one of the replicas, without the need of any DNS resolution.
 - This is all transparant to the deployed Spring Boot applications.
-- see [../catalog-service/k8s/service.yml](../catalog-service/k8s/service.yml) for the definition
 
-#### activate the service with `kubectl apply -f k8s/service.yml` (from the right directory)
+
+![](/home/willem/git/cnsia/doc/images/Server-side_service_discovery_&_load_balancing.png)
+
+### 7.3.4 Exposing Spring Boot applications with Kubernetes Services
+there are different types of Services, depending on which access policy you want to enforce for the application.
+The default and most common type is called _ClusterIP_, and it exposes a set of Pods to the cluster. This is what makes 
+it possible for Pods to communicate with each other (for example, Catalog Service and PostgreSQL).
+Four pieces of information characterize a ClusterIP Service:
+- The selector label used to match all the Pods that should be targeted and exposed by the Service
+- The network protocol used by the Service
+- The port on which the Service is listening (we’re going to use port 80 for all our application Services)
+- The targetPort, which is the port exposed by the targeted Pods to which the Service will forward requests.
+![](/home/willem/git/cnsia/doc/images/ClusterIP_service.png)
+
+#### DEFINING A SERVICE MANIFEST WITH YAML
+- see [../catalog-service/k8s/service.yml](../catalog-service/k8s/service.yml) for the definition.
+
+#### Activate the service with `kubectl apply -f k8s/service.yml` (from the right directory)
 and you see that the label `app=catalog-service` now comprises a fourth part: `service/catalog-service`
 ```bash
 willem@linux-laptop:~/git/cnsia/catalog-service$ kubectl apply -f k8s/service.yml
@@ -220,6 +314,15 @@ The port forwards allow you to use
 kubectl port-forward service/catalog-service 9001:80
 kubectl port-forward service/polar-postgres 5432:5432
 ```
+- The process started by the kubectl port-forward command will keep running until you explicitly stop it with Ctrl-C. 
+  Until then, you’ll need to open another Terminal window if you want to run CLI commands.
+
+#### The communication between an external client and the catalog-service and polar-postgres db within the cluster
+![](/home/willem/git/cnsia/doc/images/network-communication-route.png)
+
+The Catalog Service application is exposed to your local machine through port forwarding. Both Catalog Service and 
+PostgreSQL are exposed to the inside of the cluster through the cluster-local hostname, IP address, and port assigned 
+to the Service objects.
 
 ## 7.4 Scalability and disposability
 

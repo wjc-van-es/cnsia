@@ -32,6 +32,12 @@ h1,h2,h3,h4,h5 {
   color: #269B7D; 
   font-family: "fira sans", "Latin Modern Sans", Calibri, "Trebuchet MS", sans-serif;
 }
+
+img {
+  width: auto; 
+  height: 80%;
+  max-height: 100%; 
+}
 </style>
 
 # Chapter 6 - Containerizing Spring Boot
