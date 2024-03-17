@@ -7,6 +7,7 @@ metadata:
     app: catalog-service
 
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: catalog-service
@@ -19,6 +20,10 @@ spec:
         - name: catalog-service
           image: ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT
           imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 5" ]
           ports:
             - containerPort: 9001
           env:

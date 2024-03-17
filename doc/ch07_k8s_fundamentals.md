@@ -325,29 +325,57 @@ PostgreSQL are exposed to the inside of the cluster through the cluster-local ho
 to the Service objects.
 
 ## 7.4 Scalability and disposability
+High availability can be achieved by deploying multiple instances of an application. 
+The application needs to be scalable and for this to work
+- to be disposed off and replaced quickly when it enters a faulty state,
+- therefore, it needs to be stateless as well.
 
 ### 7.4.1 Ensuring disposability: Fast startup
+Spring Boot improves upon fast startup times with every new release.
+
+For serverless applications fast startup times are most important (see chapter 16)
 
 ### 7.4.2  Ensuring disposability: Graceful shutdown
-
+- Graceful shutdown means that the application 
+  - stops accepting new requests, 
+  - completes all requests already in progress and
+  - closes all shared resources like database connections.
+- The default behavior is that Spring Boot will immediately stop after receiving a termination signal (`SIGTERM`)
 - We will set a graceful shutdown with a 15s grace period for the _catalog-service_ application within
-  [../catalog-service/src/main/resources/application.yml](../catalog-service/src/main/resources/application.yml)
+  [../catalog-service/src/main/resources/application.yml](../catalog-service/src/main/resources/application.yml) `spring.lifecycle.timeout-per-shutdown-phase`
+  and set `server.shutdown` to `graceful`. This means that 
+  - after the Spring Boot application receives a `SIGTERM` it will attempt a graceful server shutdown
+  - and that 15 s after a `SIGTERM` is sent by Kubernetes and a pod is still running it will receive a `SIGKILL` to
+    force the pod's termination.
+- Kubernetes won't send new requests to a pod it has sent a `SIGTERM`.
 - Then we will update the image tag to `0.0.4-SNAPSHOT` by changing the maven artifact version value in the
   [../catalog-service/pom.xml](../catalog-service/pom.xml)
-- [../catalog-service/k8s/deployment.yml](../catalog-service/k8s/deployment.yml) 
-  we add a `spec/template/spec/containers[0]/lifecycle/prestop/exec/command` with value 
-  `command: [ "sh", "-c", "sleep 5" ]`, which makes Kubernetes wait for 5s before issuing the `SIGTERM` signal
-  to the pod.
+- To [../catalog-service/k8s/deployment.yml](../catalog-service/k8s/deployment.yml) 
+  - we add a _`preStop` hook_ `spec/template/spec/containers[0]/lifecycle/prestop/exec/command` with value 
+   `command: [ "sh", "-c", "sleep 5" ]`, which makes Kubernetes wait for 5s before issuing the `SIGTERM` signal
+   to the pod.
+  - This delay gives Kubernetes enough time to spread the news of eminent pod termination across the cluster so 
+    all components involved will already have stopped sending new requests to the failing pod before it receives a
+    `SIGTERM` signal.
 - Now redo the steps described in 
   [7.2.3 Creating a Deployment for a Spring Boot application](#723-creating-a-deployment-for-a-spring-boot-application)
   - with the modification that the application version will now be `0.0.4-SNAPSHOT` and the image reference in
     [../catalog-service/k8s/deployment.yml](../catalog-service/k8s/deployment.yml)
     now referring to the image `ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT`
 
+### 7.4.3 Scaling Spring Boot applications
+If you want to scale the ReplicaSet with the _catalog service_ from one pod to two pods we only need to specify
+`spec/replicas` value from 1 to 2 within [../catalog-service/k8s/deployment.yml](../catalog-service/k8s/deployment.yml). This will take effect after
+calling `~/git/cnsia/catalog-service$ kubectl apply -f k8s/deployment.yml`. Kubernetes will then notice that the number
+desired pods for catalog service has increased from 1 to 2 and will make it so as you can check with:
+`kubectl get pods -l app=catalog-service`
+
+
 ---
 
 ### NOTE: loading the new version of the image on minikube polar profile doesn't work
-See [minikube-problem-loading-local-image.md](minikube-problem-loading-local-image.md)
+See [minikube-problem-loading-local-image.md](minikube-problem-loading-local-image.md) and 
+[minikube-problem-loading-local-image_continued.md](minikube-problem-loading-local-image_continued.md)
 
 ---
 
