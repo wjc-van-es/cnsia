@@ -120,6 +120,8 @@ docker.io/kubernetesui/dashboard:<none>
 willem@linux-laptop:~/git/cnsia$ 
 
 ```
+- [https://github.com/kubernetes/minikube/issues/18021](https://github.com/kubernetes/minikube/issues/18021)
+  suggests going back to docker 
 - [https://github.com/kubernetes/minikube/issues/11597](https://github.com/kubernetes/minikube/issues/11597)
 - [https://github.com/kubernetes/minikube/issues/17696](https://github.com/kubernetes/minikube/issues/17696)
 - The image works with docker compose

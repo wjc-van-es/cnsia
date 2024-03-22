@@ -693,3 +693,168 @@ Are you sure you want to continue? [y/N] y
 Total reclaimed space: 0B
 willem@linux-laptop:~/git/cnsia$ 
 ```
+
+### After upgrades and cleanups loading a local inage still fails
+```bash
+willem@linux-laptop:~/git/cnsia$ minikube start -p polar
+😄  [polar] minikube v1.32.0 on Ubuntu 22.04
+✨  Using the docker driver based on existing profile
+👍  Starting control plane node polar in cluster polar
+🚜  Pulling base image ...
+🔄  Restarting existing docker container for "polar" ...
+🐳  Preparing Kubernetes v1.28.3 on Docker 24.0.7 ...
+🔗  Configuring bridge CNI (Container Networking Interface) ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image docker.io/kubernetesui/dashboard:v2.7.0
+    ▪ Using image docker.io/kubernetesui/metrics-scraper:v1.0.8
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+💡  Some dashboard features require the metrics-server addon. To enable all features please run:
+
+        minikube -p polar addons enable metrics-server  
+
+
+🌟  Enabled addons: storage-provisioner, default-storageclass, dashboard
+🏄  Done! kubectl is now configured to use "polar" cluster and "default" namespace by default
+
+```
+
+````bash
+willem@linux-laptop:~/git/cnsia$ minikube -p polar image load ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT
+
+❌  Exiting due to GUEST_IMAGE_LOAD: Failed to load image: save to dir: caching images: caching image "/home/willem/.minikube/cache/images/amd64/ghcr.io/wjc-van-es/catalog-service_0.0.4-SNAPSHOT": write: unable to calculate manifest: blob sha256:3f85b0460b4d0045fe49b022b729579cdad5e950204ce9e1d4bb9023297e5598 not found
+
+╭───────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                           │
+│    😿  If the above advice does not help, please let us know:                             │
+│    👉  https://github.com/kubernetes/minikube/issues/new/choose                           │
+│                                                                                           │
+│    Please run `minikube logs --file=logs.txt` and attach logs.txt to the GitHub issue.    │
+│    Please also attach the following file to the GitHub issue:                             │
+│    - /tmp/minikube_image_600345b87f3be210badc6b5a32c1c99d523003c3_0.log                   │
+│                                                                                           │
+╰───────────────────────────────────────────────────────────────────────────────────────────╯
+
+willem@linux-laptop:~/git/cnsia$ 
+````
+
+### Possible workaround push local image to repository and then `image pull` instead of `image load`
+But we saw that a remote pull did work:
+- `minikube -p polar image pull postgres:16.1` works
+- `minikube -p polar image load ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT`
+
+- Renew the expired PAT or personal access token
+- `docker login ghcr.io`
+  - you will be prompted for your username `wjc-van-es`
+  - and password, which is the PAT you just created.
+  - after the message `login Succeeded` you can continue with
+- `docker push ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT`
+
+- `minikube -p polar image pull ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT` gives no complaints,
+- however, `minikube -p polar image ls` doesn't show our image.
+- Possible solution:
+  - [https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb](https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb)
+  - [https://stackoverflow.com/questions/71374622/how-do-i-pull-a-github-ghcr-io-from-minikube](https://stackoverflow.com/questions/71374622/how-do-i-pull-a-github-ghcr-io-from-minikube)
+
+```bash
+willem@linux-laptop:~/git/cnsia$ minikube -p polar addons configure registry-creds
+
+Do you want to enable AWS Elastic Container Registry? [y/n]: n
+
+Do you want to enable Google Container Registry? [y/n]: n
+
+Do you want to enable Docker Registry? [y/n]: y
+-- Enter docker registry server url: ghcr.io
+-- Enter docker registry username: wjc-van-es
+-- Enter docker registry password: 
+
+Do you want to enable Azure Container Registry? [y/n]: n
+✅  registry-creds was successfully configured
+willem@linux-laptop:~/git/cnsia$ minikube -p polar addons enable registry-creds
+❗  registry-creds is a 3rd party addon and is not maintained or verified by minikube maintainers, enable at your own risk.
+❗  registry-creds does not currently have an associated maintainer.
+    ▪ Using image docker.io/upmcenterprises/registry-creds:1.10
+🌟  The 'registry-creds' addon is enabled
+willem@linux-laptop:~/git/cnsia$ minikube -p polar image pull ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT
+willem@linux-laptop:~/git/cnsia$ minikube -p polar image ls
+registry.k8s.io/pause:3.9
+registry.k8s.io/kube-scheduler:v1.28.3
+registry.k8s.io/kube-proxy:v1.28.3
+registry.k8s.io/kube-controller-manager:v1.28.3
+registry.k8s.io/kube-apiserver:v1.28.3
+registry.k8s.io/etcd:3.5.9-0
+registry.k8s.io/coredns/coredns:v1.10.1
+gcr.io/k8s-minikube/storage-provisioner:v5
+docker.io/upmcenterprises/registry-creds:<none>
+docker.io/library/postgres:16.1
+docker.io/kubernetesui/metrics-scraper:<none>
+docker.io/kubernetesui/dashboard:<none>
+willem@linux-laptop:~/git/cnsia$ 
+
+```
+
+```bash
+willem@linux-laptop:~/git/cnsia$ cd catalog-service/
+willem@linux-laptop:~/git/cnsia/catalog-service$ kubectl apply -f k8s/
+service/catalog-service created
+Error from server (BadRequest): error when creating "k8s/deployment.yml": Deployment in version "v1" cannot be handled as a Deployment: strict decoding error: unknown field "spec.template.spec.containers[0].imagePullSecrets"
+willem@linux-laptop:~/git/cnsia/catalog-service$ 
+
+```
+
+However, in the webconsole, I can see the dpr-secret under secrets and I can verify that its content is OK:
+```bash
+willem@linux-laptop:~$ tldr base64
+base64
+Encode or decode file or standard input to/from Base64, to standard output.More information: https://www.gnu.org/software/coreutils/base64.
+
+ - Encode the contents of a file as base64 and write the result to stdout:
+   base64 {{path/to/file}}
+
+ - Decode the base64 contents of a file and write the result to stdout:
+   base64 --decode {{path/to/file}}
+
+ - Encode from stdin:
+   {{somecommand}} | base64
+
+ - Decode from stdin:
+   {{somecommand}} | base64 --decode
+willem@linux-laptop:~$ echo <Base64 from data: .dockerconfigjson: > | base64 --decode > dpr-secret.json
+willem@linux-laptop:~$ gedit dpr-secret.json 
+willem@linux-laptop:~$ echo <Base64-from the dpr-secret.json> | base64 --decode >> dpr-secret.json
+willem@linux-laptop:~$ gedit dpr-secret.json 
+
+```
+
+- unknown field "spec.template.spec.containers[0].imagePullSecrets" reveals the entry is in the wrong place and should
+  be at unknown field "spec.template.spec.imagePullSecrets"
+
+- Now it works:
+  ```bash
+  willem@linux-laptop:~/git/cnsia/catalog-service$ kubectl apply -f k8s/
+  deployment.apps/catalog-service created
+  service/catalog-service unchanged
+  willem@linux-laptop:~/git/cnsia/catalog-service$ kubectl get all -l app=catalog-service
+  NAME                                   READY   STATUS    RESTARTS   AGE
+  pod/catalog-service-5c6cd469b7-q8nmw   1/1     Running   0          4m6s
+
+  NAME                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+  service/catalog-service   ClusterIP   10.103.73.153   <none>        80/TCP    31m
+
+  NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
+  deployment.apps/catalog-service   1/1     1            1           4m6s
+
+  NAME                                         DESIRED   CURRENT   READY   AGE
+  replicaset.apps/catalog-service-5c6cd469b7   1         1         1       4m6s
+  willem@linux-laptop:~/git/cnsia/catalog-service$
+
+
+  ```
+  
+- __To be continued with actual testing, but for now__
+```bash
+willem@linux-laptop:~/git/cnsia$ minikube stop -p polar
+✋  Stopping node "polar"  ...
+🛑  Powering off "polar" via SSH ...
+🛑  1 node stopped.
+willem@linux-laptop:~/git/cnsia$
+```

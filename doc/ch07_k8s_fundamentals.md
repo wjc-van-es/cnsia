@@ -373,10 +373,20 @@ desired pods for catalog service has increased from 1 to 2 and will make it so a
 
 ---
 
-### NOTE: loading the new version of the image on minikube polar profile doesn't work
+### NOTE: loading the new version of the local image on minikube polar profile currently doesn't work anymore
+The new image tagged `0.0.4-SNAPSHOT` build locally during section 7.4 could not be loaded onto the minikube cluster
+with `minikube -p polar image load ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT`
+This problem is fairly persistent.
 See [minikube-problem-loading-local-image.md](minikube-problem-loading-local-image.md) and 
 [minikube-problem-loading-local-image_continued.md](minikube-problem-loading-local-image_continued.md)
+for details.
 
+#### A work-around 
+- __pushing the new image to my private `ghcr.io/wjc-van-es/` repository and__
+- __Enable minikube to pull images from `ghcr.io/wjc-van-es` with the `registry-creds` addon__
+- This way could still deploy and test our new modifications successfully with the latest image after all.
+- See for a detailed description: [minikube-configure-ghcr-repo.md](minikube-configure-ghcr-repo.md)
+  
 ---
 
 ## Undeploying and stopping the minikube cluster
