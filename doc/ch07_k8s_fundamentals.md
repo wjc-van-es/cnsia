@@ -324,6 +324,19 @@ The Catalog Service application is exposed to your local machine through port fo
 PostgreSQL are exposed to the inside of the cluster through the cluster-local hostname, IP address, and port assigned 
 to the Service objects.
 
+---
+
+### NOTE: setting up an Ingress as alternative to port forwarding
+In chapter 9 (section 9.5.2) the concept of using Ingress objects to expose a service outside a kubernetes cluster is
+explained. There it is used to expose an Edge Service that will be used to implement an API Gateway pattern.
+For the time being we would like to expose the catalog-service directly without the need of starting a port forwarding
+process. 
+See [Ingress-4-catalog-service-setup.md](Ingress-4-catalog-service-setup.md)
+
+When we get to chapter 9 we will reconfigure this to expose the Edge Service.
+
+---
+
 ## 7.4 Scalability and disposability
 High availability can be achieved by deploying multiple instances of an application. 
 The application needs to be scalable and for this to work

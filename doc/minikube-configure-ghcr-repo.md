@@ -40,7 +40,7 @@ img {
 }
 </style>
 
-# Enable deployment manifests to pull images from `ghcr.io/wjc-van-es/`
+# Enable deployment manifests to pull images from `ghcr.io/wjc-van-es/` within our `minikube -p polar` cluster
 We have this persistent problem where minikube cannot load a locally built image with the command
 `minikube -p polar image load ghcr.io/wjc-van-es/catalog-service:0.0.4-SNAPSHOT`. As a work-around we want to be able
 to pull the same image from our `ghcr.io/wjc-van-es/` GitHub repository instead.
