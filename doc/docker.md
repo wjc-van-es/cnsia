@@ -128,6 +128,32 @@ $ docker volume prune
 # remove specified volumes
 $ docker volume rm $(docker volume ls -q --filter dangling=true)
 
+# list dangling volumes except "polar-postgres" to make sure it isn't removed accidentally anyway
+# see https://unix.stackexchange.com/questions/299462/how-to-filter-out-lines-of-a-command-output-that-occur-in-a-text-file
+$ docker volume ls -q --filter dangling=true | grep -v -x -F "polar-postgres"
+
+# remove specified dangling volumes except "polar-postgres"
+$ docker volume rm $(docker volume ls -q --filter dangling=true | grep -v -x -F "polar-postgres")
+
 # open an interactive bash session in a running container specified by name (i.e. here it's catalog-service)
 $ docker exec -it catalog-service bash
+```
+
+```bash
+$ docker volume inspect catalog-service_polar-postgres 
+[
+    {
+        "CreatedAt": "2024-08-24T17:50:31+02:00",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.project": "catalog-service",
+            "com.docker.compose.version": "2.29.1",
+            "com.docker.compose.volume": "polar-postgres"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/catalog-service_polar-postgres/_data",
+        "Name": "catalog-service_polar-postgres",
+        "Options": null,
+        "Scope": "local"
+    }
+]
 ```
