@@ -176,9 +176,14 @@ See
 2. find a way to extract the dump file from the container's filesystem
    probably, by writing it to an extra volume for file exchange
 3. create a separate Flyway V4__*.sql script from the data insert bit of the db dump
-   (with a little alteration to be recognizably different from the original)
-4. Create the external volume and specify this one in `docker-compose.yml`
-5. Test the result all records should have version 1 (and the same creation and modification timestamp)
+   (with a little alteration to be recognizably different from the original). We will need to use a new image of
+4. For the new Flyway scripts to work we need a new Docker image of catalog-service. I propose 
+   `'ghcr.io/wjc-van-es/catalog-service:0.0.5-SNAPSHOT'` 
+5. Let's see if we can update the dependencies for `'ghcr.io/wjc-van-es/catalog-service:0.0.5-SNAPSHOT'` as much as
+   possible
+6. Create the external volume and specify this one in `docker-compose.yml`
+7. In `docker-compose.yml` update the images of both the `catalog-service` and the `polar-postgres` containers.
+8. Test the result all records should have version 1 (and the same current creation and modification timestamp)
 
 ### Step 1: The datadump
 webpages with pgdump info and info of the used postgres image:
@@ -189,6 +194,8 @@ webpages with pgdump info and info of the used postgres image:
 - the postgres docker image:
   [https://hub.docker.com/_/postgres](https://hub.docker.com/_/postgres)
 - The latest stable version: `docker pull postgres:16.4-alpine3.20`
+
+### starting an interactive bash session into the running postgresql db container to produce the datadump
 ```bash
 willem@linux-laptop:~/git/cnsia$ docker exec -it polar-postgres psql -U user -d polardb_catalog -c \
 "select isbn, version, created_date, last_modified_date from book order by last_modified_date desc"
@@ -255,10 +262,11 @@ drwxrwxrwt 1 root root 4096 Aug 24 21:49 .
 drwxr-xr-x 1 root root 4096 Aug 24 15:50 ..
 -rw-r--r-- 1 root root 2120 Aug 24 21:50 polardb_catalog-data.sql
 root@3009e9e5ea12:/tmp# pg_dump polardb_catalog -a -U user --inserts > polardb_catalog-data-inserts.sql
-
-
 ```
+- `-a` is short for `--data-only` combined with `--inserts` delivers the data as insert scripts
+- later we did another complete dump, because we needed to know how the sequence was connected to the `books.id` column.
 
+### Copy the dump file from the running container in another terminal
 ```bash
 willem@linux-laptop:~/git/cnsia/catalog-service$ docker cp polar-postgres:/tmp/polardb_catalog-data-inserts.sql \
  /home/willem/git/cnsia/catalog-service/polardb_catalog-dumps/polardb_catalog-data-inserts.sql
