@@ -1,0 +1,4 @@
+INSERT INTO public.book VALUES (nextval('public.book_id_seq'), 'THOMAS VITALE', '9781617298424', 5.75, 'Cloud Native Spring in Action at the North Pole', now(), now(), 1, 'Artic Endeavor Books');
+INSERT INTO public.book VALUES (nextval('public.book_id_seq'), 'THOMAS VITALE', '9781617298425', 19.9, 'Cloud Native Spring in Action at the Antartic', now(), now(), 1, 'Wacky Publishers for weirdo''s');
+INSERT INTO public.book VALUES (nextval('public.book_id_seq'), 'Lyra Silverstar', '1234567891', 19.75, 'Northern Lights', now(), now(), 2, 'Polarsophia');
+INSERT INTO public.book VALUES (nextval('public.book_id_seq'), 'Martin Štefanko and Jan Martiška', '9781633438958', 19.99, 'Artic & Antartic Quarkus in Action', now(), now(), 2, 'Manning Publications Co.');

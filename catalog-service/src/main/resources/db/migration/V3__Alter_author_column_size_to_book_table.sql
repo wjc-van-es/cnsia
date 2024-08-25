@@ -1,1 +1,1 @@
-ALTER TABLE book ALTER COLUMN author TYPE varchar(50);
+ALTER TABLE public.book ALTER COLUMN author TYPE varchar(50);

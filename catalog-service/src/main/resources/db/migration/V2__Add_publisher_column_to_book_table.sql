@@ -1,1 +1,1 @@
-ALTER TABLE book ADD COLUMN publisher varchar(30);
+ALTER TABLE public.book ADD COLUMN publisher varchar(30);
