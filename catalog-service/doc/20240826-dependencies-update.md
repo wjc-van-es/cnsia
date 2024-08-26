@@ -185,3 +185,9 @@ I adjusted the pom file as much as possible to correspond with the example above
   - `docker image ls` reveals the latest `0.0.5-SNAPSHOT`:
     `ghcr.io/wjc-van-es/catalog-service    0.0.5-SNAPSHOT   c8d7681f5bc3   44 years ago    374MB`
 - run all tests in `catalog-service/src/test/java` in IDE context succeeds
+- Commit Push fails GitHub Workflow, because 
+  [.github/workflows/commit-stage.yml](../../.github/workflows/commit-stage.yml) still references Java 17 instead of 21.
+- After commit Push of the updated GitHub workflows file, the build succeeds:
+  - [https://github.com/wjc-van-es/cnsia/actions/runs/10568645840](https://github.com/wjc-van-es/cnsia/actions/runs/10568645840)
+  - On [https://github.com/wjc-van-es/cnsia/pkgs/container/catalog-service/versions](https://github.com/wjc-van-es/cnsia/pkgs/container/catalog-service/versions)
+    the catalog-service is availabe with tag latest (not with 0.0.5-SNAPSHOT for some reason; look into this).
