@@ -32,10 +32,10 @@ jobs:
     - name: Step 1 - checkout sources
       uses: actions/checkout@v3
       
-    - name: Step 2 - Set up JDK 17
+    - name: Step 2 - Set up JDK 21
       uses: actions/setup-java@v3
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
         cache: maven
 
@@ -85,11 +85,11 @@ jobs:
       - name: Step 1 - Checkout source code
         uses: actions/checkout@v3
 
-      - name: Step 2 - Set up JDK 17
+      - name: Step 2 - Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
           cache: maven
 
       # With the -DimageName we override the default setting in the rg.springframework.boot:spring-boot-maven-plugin
