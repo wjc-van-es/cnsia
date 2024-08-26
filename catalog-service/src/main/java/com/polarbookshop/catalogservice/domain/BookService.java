@@ -2,7 +2,6 @@ package com.polarbookshop.catalogservice.domain;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Locale;
 
 @Service
 public class BookService {

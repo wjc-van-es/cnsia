@@ -1,8 +1,10 @@
 package com.polarbookshop.catalogservice.domain;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import org.slf4j.*;
 
 import com.polarbookshop.catalogservice.config.DataConfig;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,8 @@ import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJdbcTest
 @Import(DataConfig.class)
@@ -22,11 +26,31 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("integration")
 class BookRepositoryJdbcTests {
 
+    private final Logger logger = LoggerFactory.getLogger(BookRepositoryJdbcTests.class);
+
     @Autowired
     private BookRepository bookRepository;
 
     @Autowired
     private JdbcAggregateTemplate jdbcAggregateTemplate;
+
+    @Test
+    void findAllBooksInsertedByFlyway_V5__script(){
+        Iterable<Book> actualBooks = bookRepository.findAll();
+        List<Book> books = StreamSupport
+                .stream(actualBooks.spliterator(), true)
+                .collect(Collectors.toList());
+        assertThat(books).hasSize(4);
+        Book isbn9781633438958 = books.stream()
+                .filter(book -> book.isbn().equals("9781633438958"))
+                .findFirst().get();
+        logger.info("We retrieved four books, one of which is\n{}", isbn9781633438958);
+        assertNotNull(isbn9781633438958);
+        assertEquals("Martin Štefanko and Jan Martiška", isbn9781633438958.author());
+        assertEquals("Artic & Antartic Quarkus in Action", isbn9781633438958.title());
+        assertEquals(19.99, isbn9781633438958.price());
+        assertEquals("Manning Publications Co.", isbn9781633438958.publisher());
+    }
 
     @Test
     void findAllBooks() {
