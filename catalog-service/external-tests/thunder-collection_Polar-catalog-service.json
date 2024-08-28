@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Polar-catalog-service",
     "collectionId": "740f1adb-f987-4067-8e7e-5124d4a2201f",
-    "dateExported": "2024-08-24T16:39:24.174Z",
+    "dateExported": "2024-08-28T16:43:59.935Z",
     "version": "1.2",
     "folders": [],
     "requests": [
@@ -39,11 +39,11 @@
             "method": "PUT",
             "sortNum": 30000,
             "created": "2024-08-24T15:21:09.161Z",
-            "modified": "2024-08-24T16:38:37.992Z",
+            "modified": "2024-08-28T15:58:14.145Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"isbn\": \"9781633438958\",\n  \"title\": \"Artic & Antartic Quarkus in Action\",\n  \"author\": \"Martin Štefanko and Jan Martiška\",\n  \"price\": 19.99,\n  \"publisher\": \"Manning Publications Co.\"\n}",
+                "raw": "{\n  \"isbn\": \"9781633438958\",\n  \"title\": \"Artic & Antartic Quarkus in Action\",\n  \"author\": \"Martin Štefanko and Jan Martiška\",\n  \"price\": 24.95,\n  \"publisher\": \"Manning Publications Co.\"\n}",
                 "form": []
             }
         },
@@ -63,16 +63,16 @@
             "_id": "728bb045-2dce-4af1-9cf3-9744d47ff586",
             "colId": "740f1adb-f987-4067-8e7e-5124d4a2201f",
             "containerId": "",
-            "name": "post  9781633438958",
+            "name": "post  9789492478665",
             "url": "http://localhost:9001/books/",
             "method": "POST",
             "sortNum": 40000,
             "created": "2024-08-24T16:08:52.303Z",
-            "modified": "2024-08-24T16:20:19.981Z",
+            "modified": "2024-08-28T15:53:48.829Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"isbn\": \"9781633438958\",\n  \"title\": \"Artic & Antartic Quarkus in Action\",\n  \"author\": \"Martin Štefanko and Jan Martiška\",\n  \"price\": 19.99,\n  \"publisher\": \"Manning Publications Co.\"\n}",
+                "raw": "{\n  \"isbn\": \"9789492478665\",\n  \"title\": \"Brieven aan Koos\",\n  \"author\": \"Tim Fransen\",\n  \"price\": 15.00,\n  \"publisher\": \"Das Mag Uitgevers\"\n}",
                 "form": []
             }
         },
@@ -92,7 +92,24 @@
                 "raw": "{\n        \t\"isbn\": \"1234567891\",\n        \t\"author\": \"Lyra Silverstar\",\n        \t\"title\": \"Northern Lights\",\n        \t\"price\": 19.75,\n        \t\"publisher\": \"Polarsophia\"\n        }",
                 "form": []
             }
+        },
+        {
+            "_id": "21cf6a68-80fd-4230-9025-db59e35eb3dc",
+            "colId": "740f1adb-f987-4067-8e7e-5124d4a2201f",
+            "containerId": "",
+            "name": "put  9789492478665",
+            "url": "http://localhost:9001/books/9789492478665",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2024-08-28T15:54:23.075Z",
+            "modified": "2024-08-28T15:55:29.900Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"isbn\": \"9789492478665\",\n  \"title\": \"Brieven aan Koos\",\n  \"author\": \"Tim Fransen\",\n  \"price\": 15.00,\n  \"publisher\": \"Das Mag Uitgevers\"\n}",
+                "form": []
+            }
         }
     ],
-    "ref": "aojjUnw2CQRz6Fe7dOT0GML1aLedlgc92vE90Twti9jZbul_CRz2Jrn55deqiD5MmZ93sYptsSoQmnYo5JaOnA"
+    "ref": "aojjUnw2CQRz6Fe7dOT0GLgNuaw-Ji4fwXXUB-EM5O67jvdmuFQ0_FI7aPMXNgABHPdOBpFBg-Ncx66JVK3FTg"
 }

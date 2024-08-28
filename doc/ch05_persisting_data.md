@@ -166,6 +166,30 @@ See
 ]
 
 ```
+## Cleaning up old volumes without throwing out those we would want to keep
+Listing all dangling volumes except any named exactly "polar-postgres"
+```bash
+docker volume ls -q --filter dangling=true | grep -v -x -F "polar-postgres"
+```
+- `v` Invert the sense of the match, i.e. look for lines not matching.
+- `x` When matching a pattern, require that the pattern matches the whole line, i.e. not just anywhere on the line.
+- `F` When matching a pattern, treat it as a fixed string, i.e. not as a regular expression.
+
+Listing all dangling volumes whose name contains "polar-postgres"
+```bash
+docker volume ls -q --filter dangling=true | grep "polar-postgres"
+```
+
+Listing all dangling volumes except all whose name contains "polar-postgres"
+```bash
+docker volume ls -q --filter dangling=true | grep -v "polar-postgres"
+```
+
+Safely removing any dangling volume except those whose name contain "polar-postgres"
+```bash
+docker volume rm $(docker volume ls -q --filter dangling=true | grep -v "polar-postgres")
+```
+
 
 ## 5.4 Managing databases in production with Flyway
 

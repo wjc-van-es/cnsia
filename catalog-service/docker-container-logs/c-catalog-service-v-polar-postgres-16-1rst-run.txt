@@ -1,0 +1,55 @@
+Debugging enabled on address *:8001
+Calculating JVM memory based on 24948428K available memory
+For more information on this calculation, see https://paketo.io/docs/reference/java-reference/#memory-calculator
+Calculated JVM Memory Configuration: -XX:MaxDirectMemorySize=10M -Xmx24535061K -XX:MaxMetaspaceSize=106166K -XX:ReservedCodeCacheSize=240M -Xss1M (Total Memory: 24948428K, Thread Count: 50, Loaded Class Count: 16330, Headroom: 0%)
+Enabling Java Native Memory Tracking
+Adding 137 container CA certificates to JVM truststore
+Spring Cloud Bindings Enabled
+Listening for transport dt_socket at address: 8001
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.3)
+
+2024-08-28T15:20:49.330Z  INFO 1 --- [catalog-service] [           main] c.p.c.CatalogServiceApplication          : Starting CatalogServiceApplication v0.0.5-SNAPSHOT using Java 21.0.4 with PID 1 (/workspace/BOOT-INF/classes started by cnb in /workspace)
+2024-08-28T15:20:49.331Z  INFO 1 --- [catalog-service] [           main] c.p.c.CatalogServiceApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-08-28T15:20:49.363Z  INFO 1 --- [catalog-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
+2024-08-28T15:20:49.363Z  INFO 1 --- [catalog-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Exception on Url - http://localhost:8888:org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8888/catalog-service/default": Connection refused. Will be trying the next url if available
+2024-08-28T15:20:49.363Z  WARN 1 --- [catalog-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@70fab835 uris = array<String>['http://localhost:8888'], optional = true, profiles = 'default']): I/O error on GET request for "http://localhost:8888/catalog-service/default": Connection refused
+2024-08-28T15:20:49.364Z  INFO 1 --- [catalog-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
+2024-08-28T15:20:49.364Z  INFO 1 --- [catalog-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Exception on Url - http://localhost:8888:org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8888/catalog-service/default": Connection refused. Will be trying the next url if available
+2024-08-28T15:20:49.364Z  WARN 1 --- [catalog-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@54709809 uris = array<String>['http://localhost:8888'], optional = true, profiles = 'default']): I/O error on GET request for "http://localhost:8888/catalog-service/default": Connection refused
+2024-08-28T15:20:49.364Z  INFO 1 --- [catalog-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
+2024-08-28T15:20:49.364Z  INFO 1 --- [catalog-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Exception on Url - http://localhost:8888:org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8888/catalog-service/default": Connection refused. Will be trying the next url if available
+2024-08-28T15:20:49.364Z  WARN 1 --- [catalog-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@2a2da905 uris = array<String>['http://localhost:8888'], optional = true, profiles = 'default']): I/O error on GET request for "http://localhost:8888/catalog-service/default": Connection refused
+2024-08-28T15:20:50.184Z  INFO 1 --- [catalog-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2024-08-28T15:20:50.218Z  INFO 1 --- [catalog-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 1 JDBC repository interface.
+2024-08-28T15:20:50.363Z  INFO 1 --- [catalog-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=54140955-7458-3fbc-b43a-75c2bd94ceb1
+2024-08-28T15:20:50.721Z  INFO 1 --- [catalog-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9001 (http)
+2024-08-28T15:20:50.732Z  INFO 1 --- [catalog-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-28T15:20:50.733Z  INFO 1 --- [catalog-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-08-28T15:20:50.799Z  INFO 1 --- [catalog-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-28T15:20:50.800Z  INFO 1 --- [catalog-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1433 ms
+2024-08-28T15:20:51.440Z  INFO 1 --- [catalog-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-28T15:20:51.658Z  INFO 1 --- [catalog-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5fa0141f
+2024-08-28T15:20:51.659Z  INFO 1 --- [catalog-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-28T15:20:51.699Z  INFO 1 --- [catalog-service] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://polar-postgres:5432/polardb_catalog (PostgreSQL 16.4)
+2024-08-28T15:20:51.734Z  INFO 1 --- [catalog-service] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2024-08-28T15:20:51.740Z  INFO 1 --- [catalog-service] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 5 migrations (execution time 00:00.018s)
+2024-08-28T15:20:51.764Z  INFO 1 --- [catalog-service] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2024-08-28T15:20:51.863Z  INFO 1 --- [catalog-service] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2024-08-28T15:20:51.875Z  INFO 1 --- [catalog-service] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - Initial schema"
+2024-08-28T15:20:51.933Z  INFO 1 --- [catalog-service] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - Add publisher column to book table"
+2024-08-28T15:20:51.964Z  INFO 1 --- [catalog-service] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "3 - Alter author column size to book table"
+2024-08-28T15:20:51.995Z  INFO 1 --- [catalog-service] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "4 - Create book id sequence"
+2024-08-28T15:20:52.000Z  WARN 1 --- [catalog-service] [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: relation "book_id_seq" already exists, skipping (SQL State: 42P07 - Error Code: 0)
+2024-08-28T15:20:52.017Z  INFO 1 --- [catalog-service] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "5 - Insert book records"
+2024-08-28T15:20:52.046Z  INFO 1 --- [catalog-service] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 5 migrations to schema "public", now at version v5 (execution time 00:00.053s)
+2024-08-28T15:20:53.254Z  INFO 1 --- [catalog-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2024-08-28T15:20:53.456Z  INFO 1 --- [catalog-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9001 (http) with context path '/'
+2024-08-28T15:20:53.477Z  INFO 1 --- [catalog-service] [           main] c.p.c.CatalogServiceApplication          : Started CatalogServiceApplication in 4.866 seconds (process running for 5.199)
