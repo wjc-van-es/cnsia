@@ -351,3 +351,67 @@ installed_rank|version|description                           |type|script       
              4|4      |Create book id sequence               |SQL |V4__Create_book_id_sequence.sql               | 1652022416|user        |2024-08-28 15:20:51.975|             8|true   |
              5|5      |Insert book records                   |SQL |V5__Insert_book_records.sql                   | 1574550168|user        |2024-08-28 15:20:52.010|            11|true   |
 ```
+
+## Remaining questions
+1. when running 
+  [`catalog-service/src/main/resources/db/migration/V4__Create_book_id_sequence.sql`](../catalog-service/src/main/resources/db/migration/V4__Create_book_id_sequence.sql)
+  we got:
+  ```text
+  2024-08-28T15:20:51.995Z  INFO 1 --- [catalog-service] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "4 - Create book id sequence"
+  2024-08-28T15:20:52.000Z  WARN 1 --- [catalog-service] [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: relation "book_id_seq" already exists, skipping (SQL State: 42P07 - Error Code: 0)
+  ```
+  What triggered the implicit creation of book_id_seq?
+  1. Is it the way the `public.book` table is defined in
+    [`catalog-service/src/main/resources/db/migration/V1__Initial_schema.sql`](../catalog-service/src/main/resources/db/migration/V1__Initial_schema.sql)
+    or
+  2. Is it something Flyway does?
+2.See how to run Flyway stand alone (outside Spring Boot, or maven / gradle plugin) to set up other databases not
+  directly connected to a Java project.
+
+## Answers
+For the first quetion the answer is definitely 1.1
+[https://www.postgresql.org/docs/current/datatype-numeric.html#DATATYPE-SERIAL](https://www.postgresql.org/docs/current/datatype-numeric.html#DATATYPE-SERIAL)
+```sql
+CREATE TABLE tablename (
+ colname SERIAL
+);
+```
+is equivalent to:
+```sql
+CREATE SEQUENCE tablename_colname_seq AS integer;
+CREATE TABLE tablename (
+  colname integer NOT NULL DEFAULT nextval('tablename_colname_seq')
+);
+ALTER SEQUENCE tablename_colname_seq OWNED BY tablename.colname;
+```
+Here BIGSERIAL is a variety of SERIAL as we can surmise from the table at the bottom of
+[https://www.postgresql.org/docs/current/datatype.html](https://www.postgresql.org/docs/current/datatype.html).
+See the excerpt table fragment making clear that 
+- there are three precisions of serial
+- the `V1__Initial_schema.sql` tends to use the aliases, whilst the
+  [`catalog-service/polardb_catalog-dumps/polardb_catalog-all.sql`](../catalog-service/polardb_catalog-dumps/polardb_catalog-all.sql)
+  prefers the official names.
+
+| Name                       | Aliases          | Description                                      |
+|----------------------------|------------------|--------------------------------------------------|
+| bigserial                  | serial8          | autoincrementing eight-byte integer              |
+| smallserial                | serial2          | autoincrementing two-byte integer                |
+| serial                     | serial4          | autoincrementing four-byte integer               |
+| double precision           | float8           | double precision floating-point number (8 bytes) |
+| character varying [ (n) ]  | varchar [ (n) ]  | variable-length character string                 |
+
+- the float8 type of the public.book.price column in 
+  [`V1__Initial_schema.sql`](../catalog-service/src/main/resources/db/migration/V1__Initial_schema.sql) is actually the
+  exact equivalent of the double precision used in `polardb_catalog-all.sql` and
+- the same is true for the `varchar(n)` used in the former and the `character varying(n)` used in the latter.
+
+### Flyway
+- [https://documentation.red-gate.com/flyway](https://documentation.red-gate.com/flyway)
+  - [https://documentation.red-gate.com/flyway/getting-started-with-flyway](https://documentation.red-gate.com/flyway/getting-started-with-flyway)
+- [https://www.baeldung.com/database-migrations-with-flyway](https://www.baeldung.com/database-migrations-with-flyway)
+  - Using it as Maven plugin
+  - Using it with Spring Boot
+- [https://github.com/flyway/flyway](https://github.com/flyway/flyway)
+		
+   
+   
