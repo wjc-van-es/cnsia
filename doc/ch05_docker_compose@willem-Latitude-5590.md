@@ -56,7 +56,7 @@ We already have a regular PostgreSQL Database server instance running on the `wi
 
   ```
   - So port 5432 on localhost is already engaged, therefore in 
-    [catalog-service/docker-compose.yml](../catalog-service/docker-compose.yml:30) we change 
+    [catalog-service/docker-compose.yml](../catalog-service/docker-compose.yml) we change 
     `services.postgresql.ports[0].'5432:5432'` to `services.postgresql.ports[0].'5433:5432'` 
 - `~/git/cnsia/catalog-service$ docker compose up -d` started the containers without errors
   - Second `nmap loclahost` run:
