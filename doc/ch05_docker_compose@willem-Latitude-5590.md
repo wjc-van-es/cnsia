@@ -80,9 +80,93 @@ We already have a regular PostgreSQL Database server instance running on the `wi
     `5433`
   - However, we can successfully connect to `jdbc:postgresql://localhost:5433/polardb_catalog` with the DBeaver client
     on the docker host
-    - TODO, we have to dive into (Docker) networking to find out how this works.
+    - it appears that with `ss -tnlp` we can see the exposure of port `5433` (see next section).
   - Moreover, we can do `HTTP GET requests` [http://localhost:9001/books](http://localhost:9001/books) or 
     [http://localhost:9001/books/9781633438958](http://localhost:9001/books/9781633438958)
+  - Also on `@linux-laptop` we reconfigured DBeaver to connect with port 5433 instead of 5432.
+  - The _catalog-service_ container still connects to the _polar-postgres_ container through the internal 5432 port.
+    Therefore, no configuration changes are made in
+    [../catalog-service/src/main/resources/application.yml#spring.datasource.url](../catalog-service/src/main/resources/application.yml)
+  - and therefore, no new image needs to be build either only the compose file was modified.
+
+#### How to find all ports exposed by Docker: `ss -tunlp` instead of `nmap localhost`
+- `t` for TCP
+- `u` for UDP
+- `n` for numeric
+- `l` for listening ports
+- `p` for PID's
+
+If we use `docker ps` we see:
+```bash
+CONTAINER ID   IMAGE                                               COMMAND                  CREATED         STATUS         PORTS                                                                                  NAMES
+57c01ed1ec49   ghcr.io/wjc-van-es/catalog-service:0.0.5-SNAPSHOT   "/cnb/process/web"       7 seconds ago   Up 7 seconds   0.0.0.0:8001->8001/tcp, :::8001->8001/tcp, 0.0.0.0:9001->9001/tcp, :::9001->9001/tcp   catalog-service
+ae305863106f   postgres:16.4                                       "docker-entrypoint.s…"   7 seconds ago   Up 7 seconds   0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp                                            polar-postgres
+```
+So when we apply `cc -tnlp` we should see lines with these values for the `Local Address:Port` column
+- `0.0.0.0:8001->8001/tcp` and `:::8001`
+- `0.0.0.0:9001` and `:::9001`
+- `0.0.0.0:5433` and `[::]:5433`
+
+This is the result with all other results filtered out (with grep `ss -tnlp | grep -E 'State|:8000|:9001|:5432|:5433'`),
+so this appears correct.
+```bash
+State            Recv-Q           Send-Q                          Local Address:Port                      Peer Address:Port          Process                                                                                                          
+LISTEN           0                4096                                  0.0.0.0:8001                           0.0.0.0:*                                                            
+LISTEN           0                4096                                  0.0.0.0:5433                           0.0.0.0:*                                                                      
+LISTEN           0                4096                                  0.0.0.0:9001                           0.0.0.0:*                                                                                                                                                         
+LISTEN           0                4096                                     [::]:8001                              [::]:*                                                            
+LISTEN           0                4096                                     [::]:5433                              [::]:*                                                            
+LISTEN           0                4096                                     [::]:9001                              [::]:*                                                             
+```
+
+If we also omit the `-l` option we see connections that were established:
+```bash
+willem@linux-laptop:~/git/cnsia$ ss -ntp
+State      Recv-Q      Send-Q                                    Local Address:Port                               Peer Address:Port       Process                                       
+ESTAB      0           0                                             127.0.0.1:5433                                  127.0.0.1:34484                                                     
+ESTAB      0           0                                            172.19.0.1:57568                                172.19.0.2:5432                                                 
+ESTAB      0           0                                            172.19.0.1:57560                                172.19.0.2:5432                                                          
+ESTAB      0           0                                             127.0.0.1:5433                                  127.0.0.1:34474                                                
+ESTAB      0           0                                             127.0.0.1:5433                                  127.0.0.1:34458                                                       
+ESTAB      0           0                                    [::ffff:127.0.0.1]:34458                        [::ffff:127.0.0.1]:5433        users:(("java",pid=7507,fd=20))                
+ESTAB      0           0                                    [::ffff:127.0.0.1]:34484                        [::ffff:127.0.0.1]:5433        users:(("java",pid=7507,fd=144))         
+ESTAB      0           0                                    [::ffff:127.0.0.1]:34474                        [::ffff:127.0.0.1]:5433        users:(("java",pid=7507,fd=130))              
+```
+
+After we run this again just after calling the REST API GET `http://localhost:9001/books/` on a Chrome browser:
+```bash
+willem@linux-laptop:~/git/cnsia$ ss -ntp | grep -E 'State|:9001|:5432|:5433'
+State      Recv-Q Send-Q                          Local Address:Port                   Peer Address:Port Process                             
+ESTAB      0      0                                   127.0.0.1:5433                      127.0.0.1:34484                                    
+ESTAB      0      0                                  172.19.0.1:57568                    172.19.0.2:5432                                     
+ESTAB      0      0                                  172.19.0.1:57560                    172.19.0.2:5432                                     
+CLOSE-WAIT 0      0                                  172.19.0.1:40812                    172.19.0.3:9001                                     
+ESTAB      0      0                                  172.19.0.1:57548                    172.19.0.2:5432                                     
+ESTAB      0      0                                   127.0.0.1:5433                      127.0.0.1:34474                                    
+ESTAB      0      0                                   127.0.0.1:5433                      127.0.0.1:34458                                    
+FIN-WAIT-2 0      0                                       [::1]:9001                          [::1]:38472                                    
+FIN-WAIT-2 0      0                                       [::1]:9001                          [::1]:38486                                    
+ESTAB      0      0                          [::ffff:127.0.0.1]:34458            [::ffff:127.0.0.1]:5433  users:(("java",pid=7507,fd=20))    
+ESTAB      0      0                          [::ffff:127.0.0.1]:34484            [::ffff:127.0.0.1]:5433  users:(("java",pid=7507,fd=144))   
+CLOSE-WAIT 1      0                                       [::1]:38472                         [::1]:9001  users:(("chrome",pid=9395,fd=26))  
+ESTAB      0      0                          [::ffff:127.0.0.1]:34474            [::ffff:127.0.0.1]:5433  users:(("java",pid=7507,fd=130))   
+CLOSE-WAIT 1      0                                       [::1]:38486                         [::1]:9001  users:(("chrome",pid=9395,fd=33))  
+  
+willem@linux-laptop:~/git/cnsia$ 
+
+```
+- You see Chrome browser interacting with the REST service with `[::1]:9001` as Peer
+- We see `172.19.0.2:5432` being connected to local  `172.19.0.1:57568/57560/57548`, which should represent internal
+  calls from the _catalog-service_ container to the _polar-postgres_ container
+- The java process with pid=7507 connections with peer `[::ffff:127.0.0.1]:5433` should be the _DBeaver_ client
+  on localhost connecting with the _Postgres DB_ `polardb_catalog` on the _polar-postgres_ container.
+  - executing `ps ax o user,pid,time,cmd:50 | grep -E ' PID | 7507 '` reveals 'dbeaver' inside in the 'CMD' column.
+
+#### Resources
+- [https://stackoverflow.com/questions/44509452/docker-ps-shows-different-ports-than-nmap](https://stackoverflow.com/questions/44509452/docker-ps-shows-different-ports-than-nmap)
+- [https://linuxize.com/post/grep-multiple-patterns/](https://linuxize.com/post/grep-multiple-patterns/)
+- [https://monovm.com/blog/linux-process-list/](https://monovm.com/blog/linux-process-list/)
+- [https://unix.stackexchange.com/questions/403026/how-can-i-increase-the-ps-column-width-for-column-user](https://unix.stackexchange.com/questions/403026/how-can-i-increase-the-ps-column-width-for-column-user)
 
 ### Option 2: shutdown the PostgreSQL server instance on localhost with `sudo systemctl stop postgresql.service`
 
