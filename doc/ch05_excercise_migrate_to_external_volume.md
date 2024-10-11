@@ -66,7 +66,7 @@ webpages with pgdump info and info of the used postgres image:
   [https://www.postgresql.org/docs/current/app-pgdump.html](https://www.postgresql.org/docs/current/app-pgdump.html)
 - the postgres docker image:
   [https://hub.docker.com/_/postgres](https://hub.docker.com/_/postgres)
-- The latest stable version: `docker pull postgres:16.4-alpine3.20`
+- The latest stable version: `docker pull postgres:16.4`
 
 ### starting an interactive bash session into the running postgresql db container to produce the datadump
 ```bash
