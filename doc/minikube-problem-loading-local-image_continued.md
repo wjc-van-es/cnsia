@@ -736,6 +736,10 @@ willem@linux-laptop:~/git/cnsia$ minikube -p polar image load ghcr.io/wjc-van-es
 
 willem@linux-laptop:~/git/cnsia$ 
 ````
+#### Possible cause: incompatibility between Minikube and Docker 25
+- [https://github.com/kubernetes/minikube/issues/18021](https://github.com/kubernetes/minikube/issues/18021)
+- [https://github.com/moby/moby/issues/47207](https://github.com/moby/moby/issues/47207)
+
 
 ### Possible workaround push local image to repository and then `image pull` instead of `image load`
 But we saw that a remote pull did work:

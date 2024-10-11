@@ -161,3 +161,11 @@ willem@linux-laptop:~/git/cnsia$
 ```
  No address available 
  [`http://192.168.49.2/books`](http://192.168.49.2/books) is not available.
+ 
+
+---
+
+### NOTE we forgot that we have to explicitly activate ingress for each minikube profile
+- [Ingress-4-catalog-service-setup.md](Ingress-4-catalog-service-setup.md#enable-the-ingress-addon-of-minikube-with-minikube-addons-enable-ingress--p-polar)
+
+---

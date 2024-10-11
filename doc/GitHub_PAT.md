@@ -48,7 +48,7 @@ and for that you’ll need a personal access token (PAT). Go to your GitHub acco
 navigate to Settings > Developer Settings > Personal access tokens, and choose Generate New Token. Input a meaningful 
 name, and assign it the write:packages scope to
 give the token permissions to publish images to the container registry.
-![](/home/willem/git/cnsia/doc/images/GH_personal_access_token.png)
+![](images/GH_personal_access_token.png)
 Finally, generate the token and copy its value. GitHub will show you the token value
 only once. Make sure you save it, because you’ll need it soon.
 
@@ -82,6 +82,28 @@ e3d4978d65c3: Pushed
 3586a6217bac: Pushed 
 5498e8c22f69: Pushed 
 0.0.4-SNAPSHOT: digest: sha256:76c0fe11a107bd1a5c085c0287ad6269693d69b35e100cb8f0b4945813bb7f0e size: 4706
+willem@linux-laptop:~/git/cnsia$ 
+
+```
+
+### `docker login ghcr.io` when the PAT is renewed
+`docker login ghcr.io` will attempt to login with the credentials stored in `~/.docker/config.json` and fail
+but you will be prompted to retry with new credentials:
+```bash
+willem@linux-laptop:~/git/cnsia$ docker login ghcr.io
+Authenticating with existing credentials...
+Login did not succeed, error: Error response from daemon: Get "https://ghcr.io/v2/": denied: denied
+WARNING! Your password will be stored unencrypted in /home/willem/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credential-stores
+
+Username (wjc-van-es): wjc-van-es
+Password: 
+WARNING! Your password will be stored unencrypted in /home/willem/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credential-stores
+
+Login Succeeded
 willem@linux-laptop:~/git/cnsia$ 
 
 ```
