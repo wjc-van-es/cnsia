@@ -91,6 +91,7 @@ way that new data for which no migration script is added yet is inadvertently ov
 - [https://documentation.red-gate.com/fd/getting-started-212140421.html](https://documentation.red-gate.com/fd/getting-started-212140421.html)
 
 ### Flyway API
+- [https://documentation.red-gate.com/fd/flyway-cli-and-api-183306238.html](https://documentation.red-gate.com/fd/flyway-cli-and-api-183306238.html)
 - [https://documentation.red-gate.com/fd/quickstart-api-184127575.html](https://documentation.red-gate.com/fd/quickstart-api-184127575.html)
 - [https://www.red-gate.com/hub/university/courses/flyway/getting-started-with-flyway](https://www.red-gate.com/hub/university/courses/flyway/getting-started-with-flyway)
 - [https://documentation.red-gate.com/fd/welcome-to-flyway-184127914.html](https://documentation.red-gate.com/fd/welcome-to-flyway-184127914.html)
