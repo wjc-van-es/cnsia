@@ -5,10 +5,14 @@ metadata:
   labels:
     app: catalog-service
 spec:
+#  with type: NodePort & a nodePort added under ports (underneath) we could have exposed this service to the browser on
+#  host without the need for an ingress definition
+# remember a nodePort range has to be in a specific range
+#  https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
   type: ClusterIP
   selector:
     app: catalog-service
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 9001
+    targetPort: 9001 # should match the spec.template.spec.containers[0].ports[0].containerPort of the deployment

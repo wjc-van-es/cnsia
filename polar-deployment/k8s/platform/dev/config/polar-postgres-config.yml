@@ -1,0 +1,8 @@
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: polar-postgres-config
+data:
+  polar-postgres-db: "polardb_catalog" # BEWARE! underscore gets replaced by a space !

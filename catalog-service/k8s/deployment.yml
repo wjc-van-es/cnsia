@@ -31,6 +31,18 @@ spec:
               value: "50"
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://polar-postgres/polardb_catalog
+
+#           OVERRIDE CREDENTIALS IN catalog-service/src/main/resources/application.yml
+            - name: SPRING_DATASOURCE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: polar-postgres-secret
+                  key: polar-db-user
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: polar-postgres-secret
+                  key: polar-db-password
             - name: SPRING_PROFILES_ACTIVE
               value: testdata
       imagePullSecrets:

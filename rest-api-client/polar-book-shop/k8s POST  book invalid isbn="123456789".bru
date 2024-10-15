@@ -1,0 +1,24 @@
+meta {
+  name: k8s POST  book invalid isbn="123456789"
+  type: http
+  seq: 7
+}
+
+post {
+  url: 192.168.49.2/books
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "isbn": "123456789",
+    "author": "Jimmy Carefree",
+    "title": "I can't be bothered with ISBN validity",
+    "price": 9.90
+  }
+}

@@ -1,0 +1,25 @@
+meta {
+  name: k8s PUT  book 9781633438958
+  type: http
+  seq: 6
+}
+
+put {
+  url: 192.168.49.2/books/9781633438958
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "isbn": "9781633438958",
+    "author": "Martin Štefanko and Jan Martiška",
+    "title": "Artic & Antartic Quarkus in Action",
+    "price": 45.50,
+    "publisher": "Manning Publications Co."
+  }
+}

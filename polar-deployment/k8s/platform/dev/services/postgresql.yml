@@ -19,9 +19,16 @@ spec:
           image: postgres:16.4
           env:
             - name: POSTGRES_USER
-              value: user
+              valueFrom:
+                secretKeyRef:
+                  name: polar-postgres-secret
+                  key: polar-db-user
+
             - name: POSTGRES_PASSWORD
-              value: password 
+              valueFrom:
+                secretKeyRef:
+                  name: polar-postgres-secret
+                  key: polar-db-password
             - name: POSTGRES_DB
               value: polardb_catalog
           resources:
