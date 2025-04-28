@@ -68,7 +68,7 @@ in the yaml defining its deployment & service component:
     - see also [https://stackoverflow.com/questions/75458490/using-kubernetes-secret-for-postgresql-env-causes-application-pod-crash](https://stackoverflow.com/questions/75458490/using-kubernetes-secret-for-postgresql-env-causes-application-pod-crash)
   - For the resulting definition see [polar-deployment/k8s/platform/dev/config/polar-postgres-secret.yml](../../../polar-deployment/k8s/platform/dev/config/polar-postgres-secret.yml)
 
-## Changing [`polar-deployment/k8s/platform/dev/services/postgresql.yml`](../../../polar-deployment/k8s/platform/dev/services/postgresql.yml)) to link environment vars to the secret entries
+## Changing [`polar-deployment/k8s/platform/dev/services/postgresql.yml`](../../../polar-deployment/k8s/platform/dev/services/postgresql.yml) to link environment vars to the secret entries
 fragment of `spec.template.spec.containers[0].env`
 ```yaml
 env:
