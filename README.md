@@ -46,7 +46,7 @@ written by [Thomas Vitale](https://www.thomasvitale.com/) and published by Manni
 - If you want to follow the examples of that book your best option is to fork the original sourcecode repository from the author at 
 [https://github.com/ThomasVitale/cloud-native-spring-in-action](https://github.com/ThomasVitale/cloud-native-spring-in-action)
 - The most important difference in this particular codebase is the usage of maven instead of gradle.
-- I have currently progressed up to chapter 6 of the book.
+- I have currently progressed up to chapter 8 of the book.
 
 ## Prerequisites
 

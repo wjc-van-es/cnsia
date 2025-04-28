@@ -89,10 +89,10 @@ env:
 ## Changing [`catalog-service/k8s/deployment.yml`](../../k8s/deployment.yml) to link environment vars to the secret entries
 - Here we need to once again override the default property values in 
   [`catalog-service/src/main/resources/application.yml`](../../src/main/resources/application.yml)
-  - spring.datasource.username override by introducing the environment variable 
+  - `spring.datasource.username` override by introducing the environment variable 
     `spec.template.spec.containers[0].env[2].name` with value `SPRING_DATASOURCE_USER` to refer to the 
     `polar-db-user` defined in `polar-postgres-secret`
-  - spring.datasource.password override by introducing the environment variable
+  - `spring.datasource.password` override by introducing the environment variable
     `spec.template.spec.containers[0].env[3].name` with value `SPRING_DATASOURCE_PASSWORD` to refer to the
     `polar-db-password` defined in `polar-postgres-secret`
 ```yaml
