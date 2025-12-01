@@ -2,7 +2,7 @@
 
 ## first stage acquire and extract the uberjar build with maven on the container host
 # Set root image
-FROM eclipse-temurin:17 AS builder
+FROM eclipse-temurin:21 AS builder
 
 # Set working directory
 WORKDIR workspace
@@ -18,7 +18,7 @@ RUN java -Djarmode=layertools -jar catalog-service.jar extract
 
 
 ## second stage copy all extracted directories into a separate layer discarding the rest of the first stage
-FROM    eclipse-temurin:17
+FROM    eclipse-temurin:21
 
 # create and assign spring as user instead of the default root
 # before copying everything into the working dir (so it will be owned by the spring user

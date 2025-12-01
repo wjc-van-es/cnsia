@@ -1,0 +1,25 @@
+meta {
+  name: Local CatalogServiceApplication PUT  book valid new isbn="1234567899"
+  type: http
+  seq: 15
+}
+
+put {
+  url: http://localhost:9001/books/1234567899
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "isbn": "1234567899",
+    "author": "Jimmy Carefree",
+    "title": "Freezing our asses off at -90°C",
+    "publisher": "Smashing Smut",
+    "price": 9.90
+  }
+}

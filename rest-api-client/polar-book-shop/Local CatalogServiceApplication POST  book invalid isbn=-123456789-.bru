@@ -1,0 +1,24 @@
+meta {
+  name: Local CatalogServiceApplication POST  book invalid isbn="123456789"
+  type: http
+  seq: 13
+}
+
+post {
+  url: http://localhost:9001/books
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "isbn": "123456789",
+    "author": "Jimmy Carefree",
+    "title": "I can't be bothered with ISBN validity",
+    "price": 9.90
+  }
+}
