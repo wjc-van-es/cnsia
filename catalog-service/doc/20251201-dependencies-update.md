@@ -60,7 +60,7 @@ h1,h2,h3,h4,h5 {
 - Things like Hikari Connection Pool and Flyway have their versions derived from the
   `org.springframework.boot:spring-boot-starter-parent`, I suppose.
 
-### Building a new image from the docker file:
+### Building a new image from the docker file, first attempt:
 - `~/git/cnsia/catalog-service$ docker build -t ghcr.io/wjc-van-es/catalog-service:0.0.6-SNAPSHOT .`
 - `docker image ls` reveals `ghcr.io/wjc-van-es/catalog-service:0.0.6-SNAPSHOT`
 - In [../docker-compose.yml](../docker-compose.yml) we change the `services.catalog-service.image` to 
@@ -84,3 +84,118 @@ h1,h2,h3,h4,h5 {
   `services.postgresql.ports` in [../docker-compose.yml](../docker-compose.yml) to be able to connect from the catalog-service running on
   the localhost (in a Java process on IntelliJ) to the database inside the container with the 5433 port exposed through
   port forwarding.
+
+### Building a new image with `org.springframework.boot:spring-boot-maven-plugin`
+- see also [../../doc/docker.md](../../doc/docker.md)
+- Instead of direct execution of the `docker build` command we use the 
+  `org.springframework.boot:spring-boot-maven-plugin` declared in [../pom.xml](../pom.xml) instead
+
+#### Preparations
+- update Java with
+  - `sdk list java | grep tem` to see whether a new 21 is available
+  - `sdk install java 21.0.9-tem` and allow it to be the default
+- `~/git/cnsia/catalog-service$ mvn clean package -e`
+
+#### execute `mvn spring-boot:build-image`
+- `~/git/cnsia/catalog-service$ mvn spring-boot:build-image`
+  - The tag of the image is derived from the `module.image.name` property declared in [../pom.xml](../pom.xml) 
+
+#### Modifying `docker-compose.yml`
+- Let's update the postgres image as well as the `service-catalog` image.
+- `docker pull amd64/postgres:18.1-trixie`
+- create a new external volume named `polar-postgres-18` with `docker volume create polar-postgres-18`
+  - check with `docker volume inspect polar-postgres-18`
+- In [`../docker-compose.yml`](../docker-compose.yml)
+  - Modify the value of `services.catalog-service.image`
+  - Modify the value of `services.postgresql.image` to `amd64/postgres:18.1-trixie`
+  - Change the value of `volumes.polar-postgres.name` to `polar-postgres-18`
+- When everything works remove the old volume:
+  - `docker volume rm polar-postgres-16`
+- Check with `docker volume ls`
+
+### Volume mapping changed in postgres:18
+- When starting `docker compose up -d` Both containers crashed
+- After reading their logs and [https://github.com/docker-library/postgres/pull/1259](https://github.com/docker-library/postgres/pull/1259)
+  We changed `services.postgresql.volumes` in [`../docker-compose.yml`](../docker-compose.yml)
+    - from `- polar-postgres:/var/lib/postgresql/data` to `- polar-postgres:/var/lib/postgresql/18/docker`
+
+<details>
+
+#### details
+```
+(base) willem@mint-22:~/git/cnsia$ docker exec -it polar-postgres sh
+# ls -la
+total 64
+drwxr-xr-x   1 root root 4096 Dec  2 16:49 .
+drwxr-xr-x   1 root root 4096 Dec  2 16:49 ..
+lrwxrwxrwx   1 root root    7 Nov  7 17:40 bin -> usr/bin
+drwxr-xr-x   2 root root 4096 Nov  7 17:40 boot
+drwxr-xr-x   5 root root  340 Dec  2 16:49 dev
+drwxr-xr-x   2 root root 4096 Nov 18 04:58 docker-entrypoint-initdb.d
+-rwxr-xr-x   1 root root    0 Dec  2 16:49 .dockerenv
+drwxr-xr-x   1 root root 4096 Dec  2 16:49 etc
+drwxr-xr-x   2 root root 4096 Nov  7 17:40 home
+lrwxrwxrwx   1 root root    7 Nov  7 17:40 lib -> usr/lib
+lrwxrwxrwx   1 root root    9 Nov  7 17:40 lib64 -> usr/lib64
+drwxr-xr-x   2 root root 4096 Nov 17 00:00 media
+drwxr-xr-x   2 root root 4096 Nov 17 00:00 mnt
+drwxr-xr-x   2 root root 4096 Nov 17 00:00 opt
+dr-xr-xr-x 526 root root    0 Dec  2 16:49 proc
+drwx------   1 root root 4096 Nov 18 04:58 root
+drwxr-xr-x   1 root root 4096 Nov 18 04:58 run
+lrwxrwxrwx   1 root root    8 Nov  7 17:40 sbin -> usr/sbin
+drwxr-xr-x   2 root root 4096 Nov 17 00:00 srv
+dr-xr-xr-x  13 root root    0 Dec  2 16:49 sys
+drwxrwxrwt   2 root root 4096 Nov 17 00:00 tmp
+drwxr-xr-x   1 root root 4096 Nov 17 00:00 usr
+drwxr-xr-x   1 root root 4096 Nov 17 00:00 var
+# printenv
+HOSTNAME=c355864f001c
+HOME=/root
+PG_VERSION=18.1-1.pgdg13+2
+TERM=xterm
+POSTGRES_PASSWORD=password
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/postgresql/18/bin
+POSTGRES_USER=user
+LANG=en_US.utf8
+PG_MAJOR=18
+GOSU_VERSION=1.19
+PWD=/
+POSTGRES_DB=polardb_catalog
+PGDATA=/var/lib/postgresql/18/docker
+# cd $PGDATA
+# pwd
+/var/lib/postgresql/18/docker
+# ls -la
+total 136
+drwx------ 19 postgres root      4096 Dec  2 16:49 .
+drwxr-xr-x  3 root     root      4096 Dec  2 16:49 ..
+drwx------  6 postgres postgres  4096 Dec  2 16:45 base
+drwx------  2 postgres postgres  4096 Dec  2 16:50 global
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_commit_ts
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_dynshmem
+-rw-------  1 postgres postgres  5753 Dec  2 16:45 pg_hba.conf
+-rw-------  1 postgres postgres  2681 Dec  2 16:45 pg_ident.conf
+drwx------  4 postgres postgres  4096 Dec  2 16:54 pg_logical
+drwx------  4 postgres postgres  4096 Dec  2 16:45 pg_multixact
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_notify
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_replslot
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_serial
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_snapshots
+drwx------  2 postgres postgres  4096 Dec  2 16:49 pg_stat
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_stat_tmp
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_subtrans
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_tblspc
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_twophase
+-rw-------  1 postgres postgres     3 Dec  2 16:45 PG_VERSION
+drwx------  4 postgres postgres  4096 Dec  2 16:49 pg_wal
+drwx------  2 postgres postgres  4096 Dec  2 16:45 pg_xact
+-rw-------  1 postgres postgres    88 Dec  2 16:45 postgresql.auto.conf
+-rw-------  1 postgres postgres 32319 Dec  2 16:45 postgresql.conf
+-rw-------  1 postgres postgres    36 Dec  2 16:49 postmaster.opts
+-rw-------  1 postgres postgres    99 Dec  2 16:49 postmaster.pid
+# exit
+(base) willem@mint-22:~/git/cnsia$ 
+```
+
+</details>

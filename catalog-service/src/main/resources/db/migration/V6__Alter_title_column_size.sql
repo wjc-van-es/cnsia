@@ -1,0 +1,1 @@
+ALTER TABLE public.book ALTER COLUMN title TYPE varchar(55);

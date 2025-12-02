@@ -1,0 +1,25 @@
+meta {
+  name: Local CatalogServiceApplication PUT  book valid new isbn="1234567892"
+  type: http
+  seq: 16
+}
+
+put {
+  url: http://localhost:9001/books/1234567892
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "isbn": "1234567892",
+    "author": "Edmund Blackadder",
+    "title": "A magnificent triumph of stupidity over common sense",
+    "publisher": "Adder Press LTD",
+    "price": 19.99
+  }
+}

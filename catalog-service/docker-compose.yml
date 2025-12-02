@@ -29,10 +29,10 @@ services:
     ports:
       - '5433:5432' # 5433 exposed on the host willem-Latitude-5590, which already has a postgres server
     volumes:
-      - polar-postgres:/var/lib/postgresql/data
-    image: 'postgres:16.4' # version 16.1 is pulled, but not compatible with the data files
+      - polar-postgres:/var/lib/postgresql/18/docker
+    image: 'amd64/postgres:18.1-trixie' # version 16.1 is pulled, but not compatible with the data files
 
 volumes:
   polar-postgres:
     external: true
-    name: polar-postgres-16
+    name: polar-postgres-18

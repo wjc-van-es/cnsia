@@ -133,12 +133,35 @@ $ docker volume rm $(docker volume ls -q --filter dangling=true)
 # see https://unix.stackexchange.com/questions/299462/how-to-filter-out-lines-of-a-command-output-that-occur-in-a-text-file
 $ docker volume ls -q --filter dangling=true | grep -v -x -F "polar-postgres"
 
+# -v means select the inverse, -x means exact match
+# For selecting any volumes with postgres in the name use:
+$ docker volume ls -q | grep -F "postgres"
+
+# For multiple literal fragments we can use multiple fragments like
+$ docker volume ls -q | grep "postgres\|jenkins\|qm1\|polar\|kustomize\|car-rental"
+
+# The oposite will then be 
+$ docker volume ls -q | grep -v "postgres\|jenkins\|qm1\|polar\|kustomize\|car-rental"
+
+# even more safely
+docker volume ls -q --filter dangling=true | grep -v "postgres\|jenkins\|qm1\|polar\|kustomize\|car-rental"
+
+# safe removal then becomes
+$ docker volume rm $(docker volume ls -q --filter dangling=true | grep -v "postgres\|jenkins\|qm1\|polar\|kustomize\|car-rental")
+
 # remove specified dangling volumes except "polar-postgres"
 $ docker volume rm $(docker volume ls -q --filter dangling=true | grep -v -x -F "polar-postgres")
 
 # open an interactive bash session in a running container specified by name (i.e. here it's catalog-service)
 $ docker exec -it catalog-service bash
 ```
+
+### Safe removal of volumes, exclude patterns in names of volumes you want to keep:
+- All volumes you want to keep: `docker volume ls -q | grep "postgres\|jenkins\|qm1\|polar\|kustomize\|car-rental"`
+- The reversal with `grep` argument `-v` all you want to throw away (and filter for dangling):
+  `docker volume ls -q --filter dangling=true | grep -v "postgres\|jenkins\|qm1\|polar\|kustomize\|car-rental")`
+- The actual removal command:
+- `docker volume rm $(docker volume ls -q --filter dangling=true | grep -v "postgres\|jenkins\|qm1\|polar\|kustomize\|car-rental")`
 
 ```bash
 $ docker volume inspect catalog-service_polar-postgres 
